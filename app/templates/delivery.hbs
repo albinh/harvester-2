@@ -1,0 +1,11 @@
+
+    <h1> Leverans till {{model.customer}} </h1>
+    <md-list>
+    {{#each model.crops as |dc|}}
+        {{#delivery-crop dc=dc}}{{/delivery-crop}}
+    {{/each}}
+</md-list>
+
+
+    <button {{action "add_crop"}}>add</button>
+     

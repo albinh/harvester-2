@@ -1,0 +1,29 @@
+{{#if showAddCropDialog}}
+  {{#paper-dialog fullscreen=true onClose=(action "closeAddCropDialog" "cancel") origin=dialogOrigin}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">Namnge ny gröda</h2>
+      {{paper-input placeholder="namn på gröda" autofocus=true value=cropName onChange=(action (mut cropName))}}
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row" }}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closeAddCropDialog" "cancel")}}Avbryt{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "closeAddCropDialog" "ok" cropName)}}Spara ny gröda{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
+
+{{#paper-button onClick=(action "openCropDialog")}}Lägg till gröda{{/paper-button}}
+
+
+
+    <md-list>
+    {{#each model as |dc|}}
+        {{#crop-info dc=dc}}{{/crop-info}}
+    {{/each}}
+</md-list>
+
+
+{{outlet}}

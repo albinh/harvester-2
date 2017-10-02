@@ -1,0 +1,9 @@
+
+Leveranser
+<dl>
+{{#each model as |delivery|}}
+    <dt>{{#link-to "delivery" delivery}}{{delivery.customer}}{{/link-to}}</dt>
+    <dd>{{delivery.date}}</dd>
+{{/each}}
+</dl>
+<button {{action "add"}}>  add </button>

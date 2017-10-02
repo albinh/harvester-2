@@ -3,6 +3,19 @@
 
 module.exports = function(environment) {
   let ENV = {
+
+    firebase: {
+      apiKey: "AIzaSyBDV0V8Il__xLVXgsn-ksJzWUb484RzeO8",
+      authDomain: "harvest-d7cf5.firebaseapp.com",
+      databaseURL: "https://harvest-d7cf5.firebaseio.com",
+      projectId: "harvest-d7cf5",
+      storageBucket: "harvest-d7cf5.appspot.com",
+      messagingSenderId: "187554469991"  
+    },
+  
+
+
+
     modulePrefix: 'harvest-ember',
     environment,
     rootURL: '/',
@@ -25,12 +38,14 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+     ENV.APP.LOG_RESOLVER = true;
+     ENV.APP.LOG_ACTIVE_GENERATION = true;
+     ENV.APP.LOG_TRANSITIONS = true;
+     ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+     ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
+
+
 
   if (environment === 'test') {
     // Testem prefers this...

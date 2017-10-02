@@ -1,0 +1,75 @@
+<div class="layout-row layout-xs-column">
+    <div class="layout-column flex-xs flex-gt-xs-100">
+
+
+
+        {{#auto-save model=dc as |autoSaveProxy|}}
+
+{{#paper-expansion-panel as |panel|}}
+  {{#panel.collapsed}}
+    <div class="md-panel-title">{{dc.crop}} {{item}}</div>
+    <div class="md-panel-summary">{{dc.amount}} {{dc.order_type}}</div>
+    {{paper-icon "file_download"}}  
+    {{paper-icon "keyboard_arrow_down"}}
+  {{/panel.collapsed}}
+
+  {{#panel.expanded as |expanded|}}
+    {{#expanded.header}}
+    <div class="md-panel-title">{{dc.crop}} {{item}}</div>
+     <div class="md-panel-summary"></div> 
+      {{paper-icon "keyboard_arrow_up"}}
+    {{/expanded.header}}
+{{#expanded.content}}
+                       <div class="layout-row ">
+        
+                    {{paper-input class="flex-20" value=autoSaveProxy.amount onChange=(action (mut autoSaveProxy.amount))}}
+
+                    {{#paper-select class="flex-20"
+                        disabled=disableSelect
+                        label=""
+                        options=order_types
+                        selected=autoSaveProxy.order_type
+                        onChange=(action (mut autoSaveProxy.order_type))
+                        as |order_type|}}
+                        {{order_type}}
+                    {{/paper-select}}
+
+
+
+        
+                    {{paper-input class="flex-20" value=autoSaveProxy.price onChange=(action (mut autoSaveProxy.price))}}
+
+                    {{#paper-select class="flex-20"
+                        disabled=disableSelect
+                        label=""
+                        options=price_types
+                        selected=autoSaveProxy.price_type
+                        onChange=(action (mut autoSaveProxy.price_type))
+                        as |price_type|}}
+                        {{price_type}}
+                    {{/paper-select}}
+
+                </div>
+
+
+    {{/expanded.content}}
+
+    {{#expanded.footer}}
+      <span class="flex"></span>
+      {{#paper-button onClick=(action panel.collapse)}}
+        Cancel
+      {{/paper-button}}
+      {{#paper-button primary=true onClick=(action panel.collapse)}}
+        Save
+      {{/paper-button}}
+    {{/expanded.footer}}
+
+  {{/panel.expanded}}
+{{/paper-expansion-panel}}
+
+
+
+        {{/auto-save}}        
+
+    </div>
+</div>

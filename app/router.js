@@ -7,6 +7,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('deliveries');
+  this.route('delivery', {path:'/delivery/:delivery_id'})
+  this.route('crops');
 });
 
 export default Router;

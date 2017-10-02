@@ -1,5 +1,63 @@
 {{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
+
 {{!-- Feel free to remove this! --}}
 
-{{outlet}}
+{{#paper-sidenav-container class="inner-sidenav"}}
+
+  {{#paper-sidenav
+    class="md-whiteframe-z2"
+    name="left"
+    open=leftSideBarOpen
+    lockedOpen="gt-sm"
+    onToggle=(action (mut leftSideBarOpen))}}
+    {{#paper-toolbar as |toolbar|}}
+      {{#paper-toolbar-tools}}Marstorps Mat HB{{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-content padding=true}}
+    <div class="layout-column">
+       {{#paper-button}}Leveranser{{/paper-button}}
+       {{#paper-button}}Grödor{{/paper-button}}
+       {{#paper-button}}Kunder{{/paper-button}}
+       {{#paper-button}}Kulturer{{/paper-button}}
+    </div>
+    {{/paper-content}}
+    
+  {{/paper-sidenav}}
+
+  {{#paper-content}}
+<div id="main" class="flex layout-column" tabindex="-1" role="main">
+
+{{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+  {{#toolbar.tools}}
+    {{#paper-sidenav-toggle as |toggleAction|}}
+      {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+        {{paper-icon "menu"}}
+      {{/paper-button}}
+    {{/paper-sidenav-toggle}}
+    <h2>
+     test
+    </h2>
+  {{/toolbar.tools}}
+{{/paper-toolbar}}
+
+ {{#paper-content class="md-padding "}}
+  
+  <div class="doc-content">
+    {{outlet}}
+  </div>
+{{/paper-content}}
+
+
+
+    </div>
+{{/paper-content}}
+
+
+
+
+
+
+
+{{/paper-sidenav-container}}
+
+
