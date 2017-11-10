@@ -2,7 +2,7 @@
 
 {{!-- Feel free to remove this! --}}
 
-{{#paper-sidenav-container class="inner-sidenav"}}
+{{#paper-sidenav-container class="site-nav-container"}}
 
   {{#paper-sidenav
     class="md-whiteframe-z2"
@@ -24,8 +24,7 @@
     
   {{/paper-sidenav}}
 
-  {{#paper-content}}
-<div id="main" class="flex layout-column" tabindex="-1" role="main">
+  <div id="main" class="flex layout-column" tabindex="-1" role="main">
 
 {{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
   {{#toolbar.tools}}
@@ -40,17 +39,14 @@
   {{/toolbar.tools}}
 {{/paper-toolbar}}
 
- {{#paper-content class="md-padding "}}
   
-  <div class="doc-content">
+  <div class="md-padding doc-content">
     {{outlet}}
   </div>
-{{/paper-content}}
 
 
 
     </div>
-{{/paper-content}}
 
 
 

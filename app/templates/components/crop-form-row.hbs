@@ -1,0 +1,14 @@
+{{#auto-save model=cropform_o as |cropform|}}
+
+               <div class="layout-row ">
+                <div class="flex-33">
+                  {{cropform.name}}
+                </div>
+                <div class="flex-33">
+                  {{#unless cropform.read_only}}
+                    {{paper-input class="flex-30" label="kg/st"  value=cropform.weight_of_one_unit onChange=(action (mut cropform.weight_of_one_unit))}}
+                  {{/unless}}
+                </div>
+
+            </div>
+            {{/auto-save}}

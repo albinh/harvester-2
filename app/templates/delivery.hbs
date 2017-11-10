@@ -1,11 +1,34 @@
+{{#if showAddDeliveryCropFormDialog}}
+    {{#paper-dialog fullscreen=true onClose=(action "closeAddDeliveryCropFormDialog" "cancel") origin=dialogOrigin}}
+        {{#paper-dialog-content}}
+            <h2 class="md-title">Välj gröda</h2>
+            {{#paper-select disabled=false label="Gröda" options=crops selected=add_crop onChange=(action (mut add_crop)) as |crop|}}
+                {{crop.name}}
+            {{/paper-select}}
 
-    <h1> Leverans till {{model.customer}} </h1>
-    <md-list>
+            {{#paper-select disabled=false label="Variant" options=crop_forms selected=add_cropform onChange=(action (mut add_cropform)) as |cropform|}}
+                {{cropform.name}}
+            {{/paper-select}}
+            
+            
+        {{/paper-dialog-content}}
+
+        {{#paper-dialog-actions class="layout-row" }}
+            <span class="flex"></span>
+            {{#paper-button primary=true onClick=(action "closeAddDeliveryCropFormDialog" "cancel")}}Avbryt{{/paper-button}}
+            {{#paper-button primary=true onClick=(action "closeAddDeliveryCropFormDialog" "ok" add_crop add_cropform)}}Spara ny variant av {{dc.name}}{{/paper-button}}
+        {{/paper-dialog-actions}}
+    {{/paper-dialog}}
+{{/if}}
+
+
+
+<h1> Leverans till {{model.customer}} </h1>
+<md-list>
     {{#each model.crops as |dc|}}
-        {{#delivery-crop dc=dc}}{{/delivery-crop}}
+        
+        {{#delivery-crop delivery_crop=dc}}{{/delivery-crop}}
     {{/each}}
 </md-list>
 
-
-    <button {{action "add_crop"}}>add</button>
-     
+<button {{action "show_add_crop_dialog"}}>add</button>

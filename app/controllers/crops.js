@@ -11,6 +11,8 @@ export default Ember.Controller.extend({
             newPost.get("crops").createRecord();
             newPost.save();
 
+            
+
             console.log("asdf")
         },
 
@@ -29,7 +31,20 @@ export default Ember.Controller.extend({
                     
 
                 });
+                var store = this.get('store')
+                var newCropForm = store.createRecord('crop_form', {
+                    name: "lösvikt",
+                    crop:newCrop,
+                    weight_of_one_unit:1,
+                    read_only:true
+                });
+                newCropForm.default_form=newCropForm;
+                newCropForm.save();
+                newCrop.get('forms').pushObject(newCropForm);
                 newCrop.save();
+
+                
+
             }
             this.set('showAddCropDialog', false);
         },

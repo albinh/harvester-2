@@ -2,3 +2,6 @@
 
 @import 'ember-paper';
 @import "ember-paper-expansion-panel";
+md-sidenav.site-sidenav {
+    background: color($primary, '400');
+}  

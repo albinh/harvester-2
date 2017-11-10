@@ -8,10 +8,6 @@ export default Ember.Controller.extend({
                 date: new Date(),
                 
               });
-              newPost.get("crops").createRecord();
-              newPost.save();
-              
-          console.log("asdf")
         }
       }
     

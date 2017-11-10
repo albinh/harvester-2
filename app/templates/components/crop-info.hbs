@@ -1,4 +1,19 @@
+{{#if showAddCropFormDialog}}
+  {{#paper-dialog fullscreen=true onClose=(action "closeAddCropFormDialog" "cancel") origin=dialogOrigin}}
 
+    {{#paper-dialog-content}}
+      <h2 class="md-title">Namnge ny variant</h2>
+      {{paper-input placeholder="namn på variant" autofocus=true value=cropFormName onChange=(action (mut cropFormName))}}
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row" }}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closeAddCropFormDialog" "cancel")}}Avbryt{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "closeAddCropFormDialog" "ok" cropFormName)}}Spara ny variant av {{dc.name}}{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
 
 
 <div class="layout-row layout-xs-column">
@@ -8,42 +23,25 @@
       {{#paper-expansion-panel as |panel|}}
         {{#panel.collapsed}}
           <div class="md-panel-title">{{dc.name}} {{item}}</div>
-          <div class="md-panel-summary">kg, huvud, knippe {{dc.order_type}}</div>
-          {{paper-icon "file_download"}} {{paper-icon "keyboard_arrow_down"}}
+          {{paper-icon "keyboard_arrow_down"}}
         {{/panel.collapsed}}
 
         {{#panel.expanded as |expanded|}}
           {{#expanded.header}}
             <div class="md-panel-title">{{dc.name}}</div>
-            <div class="md-panel-summary">1 huvud &asymp; 2kg</div>
-            1 knippe &asymp; 4kg
             {{paper-icon "keyboard_arrow_up"}}
           {{/expanded.header}}
           {{#expanded.content}}
-            <div class="layout-row ">
+            
+            {{#each dc.forms as |cropform_o|}}
+                  {{#crop-form-row cropform_o=cropform_o}}
+                  {{/crop-form-row}}
+            {{/each}}
 
-              {{paper-input class="flex-20" value=autoSaveProxy.amount onChange=(action (mut autoSaveProxy.amount))}}
+            {{#paper-button onClick=(action "openAddCropFormDialog")}}Lägg till variant{{/paper-button}}
 
-              {{#paper-select class="flex-20" disabled=disableSelect label="" options=order_types selected=autoSaveProxy.order_type onChange=(action
-                (mut autoSaveProxy.order_type)) as |order_type|}}
-                {{order_type}}
-              {{/paper-select}}
-              {{paper-input class="flex-20" value=autoSaveProxy.price onChange=(action (mut autoSaveProxy.price))}}
-              {{#paper-select class="flex-20" disabled=disableSelect label="" options=price_types selected=autoSaveProxy.price_type onChange=(action
-                (mut autoSaveProxy.price_type)) as |price_type|}}
-                {{price_type}}
-              {{/paper-select}}
-            </div>
           {{/expanded.content}}
-          {{#expanded.footer}}
-            <span class="flex"></span>
-            {{#paper-button onClick=(action panel.collapse)}}
-              Cancel
-            {{/paper-button}}
-            {{#paper-button primary=true onClick=(action panel.collapse)}}
-              Save
-            {{/paper-button}}
-          {{/expanded.footer}}
+
 
         {{/panel.expanded}}
       {{/paper-expansion-panel}}

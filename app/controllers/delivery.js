@@ -5,12 +5,37 @@ import ColumnDefinition from 'ember-table/models/column-definition';
   
 
 export default Ember.Controller.extend({
+
+    crops: Ember.computed('', function(){
+        return this.store.findAll('crop')        
+    }),
+
+    crop_forms: Ember.computed('add_crop', function(){
+        {{debugger}}
+        var c=this.get('add_crop');
+        if (c==null) {
+            return []
+        } else {
+        return this.get('add_crop').get('forms');
+        }
+    }),
+
+    
+
     actions: {
-        add_crop() {
+        show_add_crop_dialog() {
+            this.set('dialogOrigin', null);
+            this.set('showAddDeliveryCropFormDialog', true);
+        },
+        
+        
+        closeAddDeliveryCropFormDialog(result, crop, cropForm) {
+            if (result === 'ok') {
+        
 
             
             let delivery_crop = this.get('store').createRecord('delivery_crop', {
-              crop: "asdf",
+              crop_form: cropForm,
               amount:3
             });
             {{debugger}}
@@ -22,8 +47,9 @@ export default Ember.Controller.extend({
                 return delivery.save();
 
             })
-
-            
+        }
+        this.set('showAddDeliveryCropFormDialog', false);
+        
             
                         
         }
