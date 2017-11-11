@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('deliveries');
   this.route('delivery', {path:'/delivery/:delivery_id'})
   this.route('crops');
+  this.route('customer-categories');
 });
 
 export default Router;

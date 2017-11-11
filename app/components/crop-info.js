@@ -19,7 +19,7 @@ export default Ember.Component.extend({
                 console.log(cropFormName);
                 var crop = this.get('dc');
                 console.log(crop);
-                var store = this.get('store')
+                var store = this.get('store');
                 var newCropForm = store.createRecord('crop_form', {
                     name: cropFormName,
                     crop:crop
