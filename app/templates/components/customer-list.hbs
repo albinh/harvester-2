@@ -1,0 +1,86 @@
+{{yield}}
+
+{{#if showAddCustomerCategoryDialog}}
+  {{#paper-dialog fullscreen=true onClose=(action "closeAddCustomerCategoryDialog" "cancel") origin=dialogOrigin}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">Ny kundkategory</h2>
+
+      {{paper-input placeholder="namn" autofocus=true value=customerCategoryName onChange=(action (mut customerCategoryName))}}
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row" }}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closeAddCustomerCategoryDialog" "cancel")}}Avbryt{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "closeAddCustomerCategoryDialog" "ok" customerCategoryName)}}Skapa kategory{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
+
+{{#if showAddCustomerDialog}}
+  {{#paper-dialog fullscreen=false onClose=(action "closeAddCustomerDialog" "cancel") origin=dialogOrigin}}
+
+
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">Ny kund (kategori: {{category.name}})</h2>
+      {{paper-input placeholder="namn" autofocus=true value=customerName onChange=(action (mut customerName))}}
+
+      {{#paper-select disabled=false label="Kategori" options=customerCategories selected=category onChange=(action (mut category)) as
+        |category|}}
+        {{category.name}}
+      {{/paper-select}}
+
+
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row" }}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closeAddCustomerDialog" "cancel")}}Avbryt{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "closeAddCustomerDialog" "ok" customerName category)}}Skapa kategory{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
+
+{{#paper-list}}
+  {{#each model as |customer|}}
+    {{#paper-item as |controls|}}
+      <div class="md-list-item-text">
+        <h3>{{customer.name}}</h3>
+        <p>{{customer.category.name}}</p>
+      </div>
+      <div class="md-secondary-container">
+        {{#controls.button secondary=true }}
+          Visa info
+        {{/controls.button}}
+
+      </div>
+    {{/paper-item}}
+  {{/each}}
+{{/paper-list}}
+
+{{#paper-speed-dial fab=true class="md-fab-bottom-right" open=fab_open onToggle=(action (mut fab_open)) as |dial|}}
+  {{#dial.trigger}}
+    {{#paper-button fab=true}}
+      {{paper-icon "menu"}}
+    {{/paper-button}}
+  {{/dial.trigger}}
+
+  {{#dial.actions as |actions|}}
+    {{#actions.action}}
+      {{#paper-button mini=true onClick=(action "openAddCustomerCategoryDialog")}}
+        {{paper-icon "group"}}
+      {{/paper-button}}
+    {{/actions.action}}
+
+  {{#actions.action}}
+    {{#paper-button mini=true onClick=(action "openAddCustomerDialog")}}
+      {{paper-icon "person"}}
+    {{/paper-button}}
+  {{/actions.action}}
+  {{/dial.actions}}
+
+{{/paper-speed-dial}}
+

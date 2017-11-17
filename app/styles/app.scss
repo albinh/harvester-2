@@ -5,3 +5,20 @@
 md-sidenav.site-sidenav {
     background: color($primary, '400');
 }  
+
+md-sidenav button {
+    text-align:left !important;
+}
+
+md-sidenav {
+    background:color($primary, '200');
+}
+
+/*
+button.md-fab {
+    top: auto;
+    right: 20px;
+    bottom: 20px;
+    left: auto;
+    position:fixed !important;
+}*/

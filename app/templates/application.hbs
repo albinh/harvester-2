@@ -15,10 +15,10 @@
     {{/paper-toolbar}}
     {{#paper-content padding=true}}
     <div class="layout-column">
-       {{#paper-button}}Leveranser{{/paper-button}}
-       {{#paper-button}}Grödor{{/paper-button}}
-       {{#paper-button}}Kunder{{/paper-button}}
-       {{#paper-button}}Kulturer{{/paper-button}}
+       {{#paper-button  href=(href-to "deliveries")}}{{paper-icon "shopping basket"}}Leveranser{{/paper-button}}
+       {{#paper-button  href=(href-to "crops")}}{{paper-icon "nature"}}Grödor{{/paper-button}}
+       {{#paper-button  href=(href-to "customers")}}{{paper-icon "people"}}Kunder{{/paper-button}}
+       {{#paper-button  href=(href-to "customers")}}{{paper-icon "texture"}}Kulturer{{/paper-button}}
     </div>
     {{/paper-content}}
     
@@ -28,7 +28,7 @@
 
 {{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
   {{#toolbar.tools}}
-    {{#paper-sidenav-toggle as |toggleAction|}}
+    {{#paper-sidenav-toggle name="left" as |toggleAction|}}
       {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
         {{paper-icon "menu"}}
       {{/paper-button}}
@@ -41,7 +41,9 @@
 
   
   <div class="md-padding doc-content">
+    <div class="md-content">
     {{outlet}}
+    </div>
   </div>
 
 
