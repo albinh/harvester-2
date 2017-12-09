@@ -1,0 +1,27 @@
+{{yield}}
+
+{{#if showAddFieldDialog}}
+  {{#paper-dialog fullscreen=true onClose=(action "closeAddFieldDialog" "cancel") origin=dialogOrigin}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">Namnge nytt fält</h2>
+      {{paper-input placeholder="namn på fält" autofocus=true value=fieldName onChange=(action (mut fieldName))}}
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row" }}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closeAddFieldDialog" "cancel")}}Avbryt{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "closeAddFieldDialog" "ok" fieldName)}}Spara nytt fält{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
+
+{{#each model as |field|}}
+
+    {{beds-list field=field}}
+{{/each}}
+
+{{#paper-button primary=true onClick=(action "openAddFieldDialog")}}
+    Lägg till fält
+{{/paper-button}}

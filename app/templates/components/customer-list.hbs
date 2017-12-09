@@ -61,26 +61,3 @@
   {{/each}}
 {{/paper-list}}
 
-{{#paper-speed-dial fab=true class="md-fab-bottom-right" open=fab_open onToggle=(action (mut fab_open)) as |dial|}}
-  {{#dial.trigger}}
-    {{#paper-button fab=true}}
-      {{paper-icon "menu"}}
-    {{/paper-button}}
-  {{/dial.trigger}}
-
-  {{#dial.actions as |actions|}}
-    {{#actions.action}}
-      {{#paper-button mini=true onClick=(action "openAddCustomerCategoryDialog")}}
-        {{paper-icon "group"}}
-      {{/paper-button}}
-    {{/actions.action}}
-
-  {{#actions.action}}
-    {{#paper-button mini=true onClick=(action "openAddCustomerDialog")}}
-      {{paper-icon "person"}}
-    {{/paper-button}}
-  {{/actions.action}}
-  {{/dial.actions}}
-
-{{/paper-speed-dial}}
-

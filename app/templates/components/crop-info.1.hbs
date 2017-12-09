@@ -1,20 +1,24 @@
-
-{{#if showAddCropFormDialog}}
-  {{#paper-dialog fullscreen=true onClose=(action "closeAddCropFormDialog" "cancel") origin=dialogOrigin}}
+{{#if showAddBedsDialog}}
+  {{#paper-dialog fullscreen=true onClose=(action "closeAddBedsDialog" "cancel") origin=dialogOrigin}}
 
     {{#paper-dialog-content}}
-      <h2 class="md-title">Namnge ny variant</h2>
-      {{paper-input placeholder="namn på variant" autofocus=true value=cropFormName onChange=(action (mut cropFormName))}}
+      <h2 class="md-title">Antal bäddar</h2>
+      {{paper-input type="number" min="1" placeholder="antal bäddar" autofocus=true value=numBeds onChange=(action (mut numBeds))}}
+      <h2 class="md-title">Längd på bäddar</h2>
+      {{paper-input type="number" min="1" placeholder="xx m" autofocus=true value=bedLength onChange=(action (mut bedLength))}}
+
+
     {{/paper-dialog-content}}
 
     {{#paper-dialog-actions class="layout-row" }}
       <span class="flex"></span>
-      {{#paper-button primary=true onClick=(action "closeAddCropFormDialog" "cancel")}}Avbryt{{/paper-button}}
-      {{#paper-button primary=true onClick=(action "closeAddCropFormDialog" "ok" cropFormName)}}Spara ny variant av {{dc.name}}{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "closeAddBedsDialog" "cancel")}}Avbryt{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "closeAddBedsDialog" "ok" cropFormName)}}Skapa {{numBeds}} bäddar{{/paper-button}}
     {{/paper-dialog-actions}}
 
   {{/paper-dialog}}
 {{/if}}
+
 
 <div class="layout-row layout-xs-column">
   <div class="layout-column flex-xs flex-gt-xs-100">

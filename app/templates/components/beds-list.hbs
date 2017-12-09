@@ -1,0 +1,59 @@
+{{yield}}
+
+{{#if showAddBedsDialog}}
+  {{#paper-dialog fullscreen=true onClose=(action "closeAddBedsDialog" "cancel") origin=dialogOrigin}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">Antal bäddar</h2>
+      {{paper-input type="number" min="1" placeholder="antal bäddar" autofocus=true value=numBeds onChange=(action (mut numBeds))}}
+      <h2 class="md-title">Längd på bäddar</h2>
+      {{paper-input type="number" min="1" placeholder="xx m" autofocus=true value=bedLength onChange=(action (mut bedLength))}}
+
+
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row" }}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closeAddBedsDialog" "cancel")}}Avbryt{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "closeAddBedsDialog" "ok" cropFormName)}}Skapa {{numBeds}} bäddar{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
+
+
+{{#paper-expansion-panel as |panel|}}
+  {{#panel.collapsed}}
+    <div class="md-panel-title">{{field.name}}
+</div>
+    <div class="md-panel-summary">xx bäddar, 20 meter</div>
+    {{paper-icon "keyboard_arrow_down"}}
+  {{/panel.collapsed}}
+ 
+  {{#panel.expanded as |expanded|}}
+    {{#expanded.header}}
+      <div class="md-panel-title">{{field.name}}
+</div>
+      <div class="md-panel-summary">xx bäddar, 20 mete</div>
+      {{paper-icon "keyboard_arrow_up"}}
+    {{/expanded.header}}
+ 
+    {{#expanded.content}}
+      Content
+    {{/expanded.content}}
+ 
+    {{#expanded.footer}}
+      <span class="flex"></span>
+      <!--
+      {{#paper-button onClick=(action "openDeleteFieldDialog")}}
+        Ta bort fält
+      {{/paper-button}}-->
+
+      {{#paper-button onClick=(action "openAddBedsDialog")}}
+        Lägg till bäddar
+      {{/paper-button}}
+      
+    {{/expanded.footer}}
+ 
+  {{/panel.expanded}}
+{{/paper-expansion-panel}}
