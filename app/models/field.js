@@ -2,5 +2,6 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
     name:                DS.attr(),
-    fields:              DS.hasMany('bed', { async: true, inverse: null }),
+    beds:              DS.hasMany('bed', { async: true, inverse: null }),
+    bedCount:            DS.attr('number')
 });

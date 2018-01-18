@@ -17,6 +17,7 @@ export default Ember.Component.extend({
                 { { debugger } }
                 var newField = store.createRecord('field', {
                     name: fieldName,
+                    bedCount:0
                 });
                 newField.save();
             }

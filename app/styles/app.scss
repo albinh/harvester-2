@@ -14,6 +14,14 @@ md-sidenav {
     background:color($primary, '200');
 }
 
+.bed-row md-input-container {
+    margin-top:0px;
+    margin-bottom:0px;
+    padding-top:0px;
+    padding-bottom:0px;
+
+}
+
 /*
 button.md-fab {
     top: auto;
@@ -22,3 +30,4 @@ button.md-fab {
     left: auto;
     position:fixed !important;
 }*/
+

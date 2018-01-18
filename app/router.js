@@ -12,6 +12,7 @@ Router.map(function() {
   this.route('crops');
   this.route('customers');
   this.route('beds');
+  this.route('cultures');
 });
 
 export default Router;
