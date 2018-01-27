@@ -1,54 +1,25 @@
-{{!-- The following component displays Ember's default welcome message. --}}
+{{#paper-sidenav-container class="site-nav-container" }}
 
-{{!-- Feel free to remove this! --}}
-
-{{#paper-sidenav-container class="site-nav-container"}}
-
-  {{#paper-sidenav
-    class="md-whiteframe-z2"
-    name="left"
-    open=leftSideBarOpen
-    lockedOpen="gt-sm"
-    onToggle=(action (mut leftSideBarOpen))}}
+  {{#paper-sidenav class="md-whiteframe-z2" name="left" open=leftSideBarOpen lockedOpen="gt-sm" onToggle=(action (mut leftSideBarOpen))}}
     {{#paper-toolbar as |toolbar|}}
       {{#paper-toolbar-tools}}Marstorps Mat HB{{/paper-toolbar-tools}}
     {{/paper-toolbar}}
     {{#paper-content padding=true}}
-    <div class="layout-column">
-       {{#paper-button  href=(href-to "deliveries")}}{{paper-icon "shopping basket"}}Leveranser{{/paper-button}}
-       {{#paper-button  href=(href-to "crops")}}{{paper-icon "nature"}}Grödor{{/paper-button}}
-       {{#paper-button  href=(href-to "customers")}}{{paper-icon "people"}}Kunder{{/paper-button}}
-       {{#paper-button  href=(href-to "customers")}}{{paper-icon "texture"}}Kulturer{{/paper-button}}
-    </div>
+      <div class="layout-column">
+        {{#paper-button href=(href-to "deliveries")}}{{paper-icon "shopping basket"}}Leveranser{{/paper-button}}
+        {{#paper-button href=(href-to "crops")}}{{paper-icon "nature"}}Grödor{{/paper-button}}
+        {{#paper-button href=(href-to "customers")}}{{paper-icon "people"}}Kunder{{/paper-button}}
+        {{#paper-button href=(href-to "customers")}}{{paper-icon "texture"}}Kulturer{{/paper-button}}
+      </div>
     {{/paper-content}}
-    
+
   {{/paper-sidenav}}
 
   <div id="main" class="flex layout-column" tabindex="-1" role="main">
-
-{{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
-  {{#toolbar.tools}}
-    {{#paper-sidenav-toggle name="left" as |toggleAction|}}
-      {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
-        {{paper-icon "menu"}}
-      {{/paper-button}}
-    {{/paper-sidenav-toggle}}
-    <h2>
-     test
-    </h2>
-  {{/toolbar.tools}}
-{{/paper-toolbar}}
-
-  
-  <div class="md-padding doc-content">
-    <div class="md-content">
     {{outlet}}
-    </div>
+
+
   </div>
-
-
-
-    </div>
 
 
 
@@ -57,5 +28,3 @@
 
 
 {{/paper-sidenav-container}}
-
-

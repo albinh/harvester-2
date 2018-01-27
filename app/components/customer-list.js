@@ -2,11 +2,22 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     store: Ember.inject.service(),    
-    customerCategories: Ember.computed('', function(){
-        return this.get('store').findAll('customer-category');
+    cTab:'all',
+
+    customers: Ember.computed('cTab', function(){
+        var cTab=this.get('cTab');
+        if (cTab=='new') return [];
+        if (cTab=='all') return this.get('store').findAll('customer');
+
+        return cTab.get('customers');
       }),
+
+    customerCategories: Ember.computed('', function() {
+        return this.get('store').findAll('customer-category')
+    }),
     
-    
+    showNew: Ember.computed.equal('cTab', 'new'),
+
     fab_open: false,
     actions: {
         /* Prompt dialog */

@@ -11,7 +11,15 @@ md-sidenav button {
 }
 
 md-sidenav {
-    background:color($primary, '200');
+    background:color($primary, '100');
+}
+
+md-sidenav md-content {
+    background:color($primary, '100');   
+}
+
+md-sidenav md-content .md-button {
+    text-align:left;
 }
 
 .bed-row md-input-container {

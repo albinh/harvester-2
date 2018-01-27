@@ -1,3 +1,23 @@
+    {{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+      {{#toolbar.tools}}
+        {{#paper-sidenav-toggle name="left" as |toggleAction|}}
+          {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+            {{paper-icon "menu"}}
+          {{/paper-button}}
+        {{/paper-sidenav-toggle}}
+        <h2>
+          Fält och bäddar
+
+        </h2>
+      {{/toolbar.tools}}
+    {{/paper-toolbar}}
+
+
+    <div class="md-padding doc-content">
+      <div class="md-content">
+{{field-list model=model}}
+      </div>
+    </div>
+
 {{outlet}}
 
-{{field-list model=model}}

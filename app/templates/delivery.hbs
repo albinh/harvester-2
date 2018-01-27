@@ -6,11 +6,12 @@
                 {{crop.name}}
             {{/paper-select}}
 
-            {{#paper-select disabled=false label="Variant" options=crop_forms selected=add_cropform onChange=(action (mut add_cropform)) as |cropform|}}
+            {{#paper-select disabled=false label="Variant" options=crop_forms selected=add_cropform onChange=(action (mut add_cropform))
+                as |cropform|}}
                 {{cropform.name}}
             {{/paper-select}}
-            
-            
+
+
         {{/paper-dialog-content}}
 
         {{#paper-dialog-actions class="layout-row" }}
@@ -21,12 +22,32 @@
     {{/paper-dialog}}
 {{/if}}
 
+<h1> Leverans till {{model.customer}} </h1>
+{{#paper-list}}
+{{#paper-subheader}}Färdiga {{/paper-subheader}}
 
+{{#each model.crops as |dc|}}
+    
+    {{#paper-item class="md-3-line"}}
+        <img src="https://www.wexthuset.com/images/products/johnsons-seeds/fro-till-morot-norfolk-f1.jpg" class="md-avatar">
+        <div class="md-list-item-text">
+            <h3>Morot (lösvikt)</h3>
+            <h4>4 kg (2 kg redan skördat</h4>
+            <p> 4kr (20kr/kg)</p>
+        </div>
+      {{#controls.button secondary=true iconButton=true }}
+        {{paper-icon "vertical_align_bottom"}}
+      {{/controls.button}}
+
+
+    {{/paper-item}}
+{{/each}}
+{{/paper-list}}
 
 <h1> Leverans till {{model.customer}} </h1>
 <md-list>
     {{#each model.crops as |dc|}}
-        
+
         {{#delivery-crop delivery_crop=dc}}{{/delivery-crop}}
     {{/each}}
 </md-list>

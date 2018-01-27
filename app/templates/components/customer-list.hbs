@@ -1,22 +1,5 @@
 {{yield}}
 
-{{#if showAddCustomerCategoryDialog}}
-  {{#paper-dialog fullscreen=true onClose=(action "closeAddCustomerCategoryDialog" "cancel") origin=dialogOrigin}}
-
-    {{#paper-dialog-content}}
-      <h2 class="md-title">Ny kundkategory</h2>
-
-      {{paper-input placeholder="namn" autofocus=true value=customerCategoryName onChange=(action (mut customerCategoryName))}}
-    {{/paper-dialog-content}}
-
-    {{#paper-dialog-actions class="layout-row" }}
-      <span class="flex"></span>
-      {{#paper-button primary=true onClick=(action "closeAddCustomerCategoryDialog" "cancel")}}Avbryt{{/paper-button}}
-      {{#paper-button primary=true onClick=(action "closeAddCustomerCategoryDialog" "ok" customerCategoryName)}}Skapa kategory{{/paper-button}}
-    {{/paper-dialog-actions}}
-
-  {{/paper-dialog}}
-{{/if}}
 
 {{#if showAddCustomerDialog}}
   {{#paper-dialog fullscreen=false onClose=(action "closeAddCustomerDialog" "cancel") origin=dialogOrigin}}
@@ -44,20 +27,54 @@
   {{/paper-dialog}}
 {{/if}}
 
-{{#paper-list}}
-  {{#each model as |customer|}}
-    {{#paper-item as |controls|}}
-      <div class="md-list-item-text">
-        <h3>{{customer.name}}</h3>
-        <p>{{customer.category.name}}</p>
-      </div>
-      <div class="md-secondary-container">
-        {{#controls.button secondary=true }}
-          Visa info
-        {{/controls.button}}
+{{#paper-tabs
+  center=false
+  stretch=true
+  borderBottom=true
+  selected=cTab
+  onChange=(action (mut cTab)) as |tabs|}}
+{{#tabs.tab value="all"}}
+ Alla
+ {{/tabs.tab}}
+{{#each customerCategories as |category|}}
 
-      </div>
-    {{/paper-item}}
+{{#tabs.tab value=category}}
+ {{category.name}}
+{{/tabs.tab}}
+{{/each}}
+{{#tabs.tab value="new" }}
+ + Ny kategori
+{{/tabs.tab}}
+{{/paper-tabs}}
+
+{{#if showNew}}
+  NYTT!
+  {{else}}
+  <div class="layout-row layout-wrap layout-xs-column">
+  {{#each customers as |customer|}}
+  <div class="layout-column flex-noshrink flex-xs-100 flex-50">
+    <div class="flex-grow">
+    {{#paper-card as |card|}}
+      {{#card.title as |title|}}
+      {{#title.text as |text|}}
+          {{#text.headline}}asdf{{customer.name}}{{/text.headline}}
+          {{#text.subhead}}{{customer.category.name}}{{/text.subhead}}
+          {{/title.text}}
+    {{/card.title}}
+    {{#card.actions}}
+        {{#paper-button}}Visa leveranser{{/paper-button}}
+        {{#paper-button}}Ny leverans{{/paper-button}}
+
+    {{/card.actions}}
+    {{/paper-card}}
+    </div>
+    </div>
+
+
+
   {{/each}}
-{{/paper-list}}
+</div>
 
+
+{{#paper-button onClick=(action "openAddCustomerDialog")}}Lägg till kund{{/paper-button}}
+{{/if}}
