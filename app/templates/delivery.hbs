@@ -1,5 +1,5 @@
 {{#if showAddDeliveryCropFormDialog}}
-    {{#paper-dialog fullscreen=true onClose=(action "closeAddDeliveryCropFormDialog" "cancel") origin=dialogOrigin}}
+    {{#paper-dialog fullscreen=false onClose=(action "closeAddDeliveryCropFormDialog" "cancel") origin=dialogOrigin}}
         {{#paper-dialog-content}}
             <h2 class="md-title">Välj gröda</h2>
             {{#paper-select disabled=false label="Gröda" options=crops selected=add_crop onChange=(action (mut add_crop)) as |crop|}}
@@ -17,34 +17,59 @@
         {{#paper-dialog-actions class="layout-row" }}
             <span class="flex"></span>
             {{#paper-button primary=true onClick=(action "closeAddDeliveryCropFormDialog" "cancel")}}Avbryt{{/paper-button}}
-            {{#paper-button primary=true onClick=(action "closeAddDeliveryCropFormDialog" "ok" add_crop add_cropform)}}Spara ny variant av {{dc.name}}{{/paper-button}}
+            {{#paper-button primary=true onClick=(action "closeAddDeliveryCropFormDialog" "ok" add_crop add_cropform)}}Lägg till i beställning{{/paper-button}}
         {{/paper-dialog-actions}}
     {{/paper-dialog}}
 {{/if}}
 
-<h1> Leverans till {{model.customer}} </h1>
+
+
+    {{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+      {{#toolbar.tools}}
+        {{#paper-sidenav-toggle name="left" as |toggleAction|}}
+          {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+            {{paper-icon "menu"}}
+          {{/paper-button}}
+        {{/paper-sidenav-toggle}}
+        
+        <h2>
+          {{model.customer}}
+
+        </h2>
+        <h3>2017-04-03</h3>
+      {{/toolbar.tools}}
+    {{/paper-toolbar}}
+
+
+    <div class="md-padding doc-content">
+      <div class="md-content">
+
+
+
+
+
 {{#paper-list}}
-{{#paper-subheader}}Färdiga {{/paper-subheader}}
 
-{{#each model.crops as |dc|}}
-    
-    {{#paper-item class="md-3-line"}}
-        <img src="https://www.wexthuset.com/images/products/johnsons-seeds/fro-till-morot-norfolk-f1.jpg" class="md-avatar">
-        <div class="md-list-item-text">
-            <h3>Morot (lösvikt)</h3>
-            <h4>4 kg (2 kg redan skördat</h4>
-            <p> 4kr (20kr/kg)</p>
-        </div>
-      {{#controls.button secondary=true iconButton=true }}
-        {{paper-icon "vertical_align_bottom"}}
-      {{/controls.button}}
+    {{#paper-subheader}}Färdiga {{/paper-subheader}}
+        {{#each model.crops as |dc|}}
+        {{delivery-crop-row dc=dc}}
+        {{/each}}
+        {{#paper-item class="md-2-line" as |controls|}}
 
+  {{#paper-button onClick=(action "show_add_crop_dialog")  class="md-avatar" primary=true raised=true mini=true}}{{paper-icon "add"}}{{/paper-button}}
 
+<div class="md-list-item-text">
+    <h3>Lägg till</h3>
+    <h4>gröda i beställning</h4>
+</div>
+<!--
+        {{#paper-button onClick=(action "show_add_crop_dialog") class="md-avatar" primary=true raised=true mini=true fab=true}}{{paper-icon "add"}}{{/paper-button}}
+-->
     {{/paper-item}}
-{{/each}}
+
 {{/paper-list}}
 
-<h1> Leverans till {{model.customer}} </h1>
+<h1>  </h1>
 <md-list>
     {{#each model.crops as |dc|}}
 
@@ -53,3 +78,5 @@
 </md-list>
 
 <button {{action "show_add_crop_dialog"}}>add</button>
+      </div>
+    </div>

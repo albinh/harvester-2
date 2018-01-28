@@ -1,0 +1,50 @@
+{{#if showEditDeliveryCropDialog}}
+    {{#paper-form onSubmit=(action "closeEditDeliveryCropDialog") as |form|}}
+
+        {{#paper-dialog fullscreen=false onClose=(action "closeEditDeliveryCropDialog" "cancel")}}
+            {{#paper-dialog-content}}
+                <h2 class="md-title">{{dc.crop_form.crop.name}} ({{dc.crop_form.name}})</h2>
+
+
+                <div class="layout-row ">
+                    {{paper-input label="Mängd" class="flex-50" value=dc.amount onChange=(action (mut dc.amount))}}
+                    {{#paper-select label="enhet" class="flex-50" disabled=disableSelect label="" options=order_types selected=dc.order_type onChange=(action
+                        (mut dc.order_type)) as |order_type|}}
+                        {{order_type}}
+                    {{/paper-select}}
+                    </div>
+
+                    <div class="layout-row ">
+                    {{paper-input label="Pris" class="flex-50" value=dc.price onChange=(action (mut dc.price))}}
+                    {{#paper-select label="enhet" class="flex-50" disabled=disableSelect label="" options=price_types selected=dc.price_type onChange=(action
+                        (mut dc.price_type)) as |price_type|}}
+                        {{price_type}}
+                    {{/paper-select}}
+                </div>
+
+
+
+            {{/paper-dialog-content}}
+
+            {{#paper-dialog-actions class="layout-row" }}
+                <span class="flex"></span>
+                {{#paper-button primary=true onClick=(action "closeEditDeliveryCropDialog" "cancel")}}Avbryt{{/paper-button}}
+                {{#paper-button primary=true onClick=(action "closeEditDeliveryCropDialog" "ok" )}}Uppdatera{{/paper-button}}
+            {{/paper-dialog-actions}}
+        {{/paper-dialog}}
+    {{/paper-form}}
+
+
+{{/if}}
+
+{{#paper-item onClick=(action "openEditDeliveryCropDialog") class="md-3-line" as |controls|}}
+    <img src="https://www.wexthuset.com/images/products/johnsons-seeds/fro-till-morot-norfolk-f1.jpg" class="md-avatar">
+    <div class="md-list-item-text">
+        <h3>{{dc.crop_form.crop.name}} ({{dc.crop_form.crop.name}} )</h3>
+        <h4>{{dc.amount}} {{dc.order_type}} (2 kg redan skördat</h4>
+        <p> 00.00kr ({{dc.price}}{{dc.price_type}})</p>
+    </div>
+    {{#controls.button secondary=true iconButton=true }}
+        {{paper-icon "vertical_align_bottom"}}
+    {{/controls.button}}
+{{/paper-item}}
