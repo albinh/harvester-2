@@ -62,21 +62,11 @@
     <h3>Lägg till</h3>
     <h4>gröda i beställning</h4>
 </div>
-<!--
-        {{#paper-button onClick=(action "show_add_crop_dialog") class="md-avatar" primary=true raised=true mini=true fab=true}}{{paper-icon "add"}}{{/paper-button}}
--->
+
     {{/paper-item}}
 
 {{/paper-list}}
 
-<h1>  </h1>
-<md-list>
-    {{#each model.crops as |dc|}}
 
-        {{#delivery-crop delivery_crop=dc}}{{/delivery-crop}}
-    {{/each}}
-</md-list>
-
-<button {{action "show_add_crop_dialog"}}>add</button>
       </div>
     </div>

@@ -30,11 +30,11 @@ export default Ember.Component.extend({
             if (result === 'ok') {
                 var store = this.get('store');
 
-                {{debugger}}
                 var newCustomer = store.createRecord('customer', {
                     name: customerName,
                     category: customerCategory
                 });
+
                 newCustomer.save();
 
 

@@ -2,8 +2,15 @@
   {{#paper-dialog fullscreen=true onClose=(action "closeAddCropDialog" "cancel") origin=dialogOrigin}}
 
     {{#paper-dialog-content}}
-      <h2 class="md-title">Namnge ny gröda</h2>
-      {{paper-input placeholder="namn på gröda" autofocus=true value=cropName onChange=(action (mut cropName))}}
+      <div class="layout-column">
+        <h3>Ny gröda</h3>
+              {{paper-input label="namn på gröda" placeholder="namn på gröda" autofocus=true value=cropName onChange=(action (mut cropName))}}
+
+        {{#paper-checkbox value=countable onChange=(action (mut countable))}} 
+        Kan räknas styckvis
+        {{/paper-checkbox}}
+        {{paper-input label="vikt per enhet" disabled=(not countable) value=weight_of_one_unit onChange=(action (mut weight_of_one_unit)) }}
+        </div>
     {{/paper-dialog-content}}
 
     {{#paper-dialog-actions class="layout-row" }}
@@ -15,15 +22,42 @@
   {{/paper-dialog}}
 {{/if}}
 
-{{#paper-button onClick=(action "openCropDialog")}}Lägg till gröda{{/paper-button}}
 
 
 
-<md-list>
-    {{#each model as |dc|}}
+
+
+
+
+
+
+{{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+  {{#toolbar.tools}}
+    {{#paper-sidenav-toggle name="left" as |toggleAction|}}
+      {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+        {{paper-icon "menu"}}
+      {{/paper-button}}
+    {{/paper-sidenav-toggle}}
+
+    <h2>
+      Grödor
+
+    </h2>
+
+  {{/toolbar.tools}}
+{{/paper-toolbar}}
+
+
+<div class="md-padding doc-content">
+  <div class="md-content">
+
+    <md-list>
+      {{#each model as |dc|}}
         {{#crop-info dc=dc}}{{/crop-info}}
-    {{/each}}
-</md-list>
+      {{/each}}
 
+    </md-list>
 
-{{outlet}}
+    {{#paper-button onClick=(action "openCropDialog") class="md-avatar" primary=true raised=true mini=true}}{{paper-icon "add"}}{{/paper-button}}
+  </div>
+</div>

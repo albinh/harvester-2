@@ -16,27 +16,65 @@
   {{/paper-dialog}}
 {{/if}}
 
+
+
 <div class="layout-row layout-xs-column">
   <div class="layout-column flex-xs flex-gt-xs-100">
     {{#auto-save model=dc as |autoSaveProxy|}}
 
       {{#paper-expansion-panel as |panel|}}
         {{#panel.collapsed}}
+        <img src="https://www.wexthuset.com/images/products/johnsons-seeds/fro-till-morot-norfolk-f1.jpg" class="md-avatar">
           <div class="md-panel-title">{{dc.name}} {{item}}</div>
+          <div class="md-secondary-container">
+            1 variant
+
+
+
+
           {{paper-icon "keyboard_arrow_down"}}
+          {{#paper-menu as |menu|}}
+  {{#menu.trigger}}
+    {{#paper-button iconButton=true}}
+      {{paper-icon "menu"}}
+    {{/paper-button}}
+  {{/menu.trigger}}
+  {{#menu.content width=4 as |content|}}
+    {{#content.menu-item onClick="openSomething" }}
+      {{paper-icon "add"}}
+      <span>Skapa variant</span>
+    {{/content.menu-item}}
+
+
+
+  {{/menu.content}}
+{{/paper-menu}}
+
+          </div>
         {{/panel.collapsed}}
 
         {{#panel.expanded as |expanded|}}
           {{#expanded.header}}
+            <img src="https://www.wexthuset.com/images/products/johnsons-seeds/fro-till-morot-norfolk-f1.jpg" class="md-avatar">
             <div class="md-panel-title">{{dc.name}}</div>
-            {{paper-icon "keyboard_arrow_up"}}
+        
+          <div class="md-secondary-container">
+            1 variant
+                      {{paper-icon "keyboard_arrow_up"}}
+          </div>
+
+
+
           {{/expanded.header}}
           {{#expanded.content}}
-            
+            <h4>Varianter</h4>
+            <ul>
+
             {{#each dc.forms as |cropform_o|}}
                   {{#crop-form-row cropform_o=cropform_o}}
                   {{/crop-form-row}}
             {{/each}}
+            </ul>
 
             {{#paper-button onClick=(action "openAddCropFormDialog")}}Lägg till variant{{/paper-button}}
 

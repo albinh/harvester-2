@@ -1,21 +1,21 @@
-{{#paper-sidenav-container class="site-nav-container" }}
+{{#paper-sidenav-container  class="layout-column layout-fill site-nav-container" }}
 
-  {{#paper-sidenav class="md-whiteframe-z2" name="left" open=leftSideBarOpen lockedOpen="gt-sm" onToggle=(action (mut leftSideBarOpen))}}
-    {{#paper-toolbar as |toolbar|}}
-      {{#paper-toolbar-tools}}Marstorps Mat HB{{/paper-toolbar-tools}}
-    {{/paper-toolbar}}
+  {{#paper-sidenav class="  md-whiteframe-z2 fullscreen" name="left" open=leftSideBarOpen lockedOpen="gt-sm" onToggle=(action (mut leftSideBarOpen))}}
     {{#paper-content padding=true}}
-      <div class="layout-column">
+      {{#paper-list}}
+        {{#paper-item active=true}}{{paper-icon "shopping basket" class="menu-icon" }}Leveranser{{/paper-item}} 
+        {{#paper-item active=false}}Leveranser{{/paper-item}} 
+
         {{#paper-button href=(href-to "deliveries")}}{{paper-icon "shopping basket"}}Leveranser{{/paper-button}}
         {{#paper-button href=(href-to "crops")}}{{paper-icon "nature"}}Grödor{{/paper-button}}
         {{#paper-button href=(href-to "customers")}}{{paper-icon "people"}}Kunder{{/paper-button}}
         {{#paper-button href=(href-to "customers")}}{{paper-icon "texture"}}Kulturer{{/paper-button}}
-      </div>
+      {{/paper-list}}
     {{/paper-content}}
 
   {{/paper-sidenav}}
 
-  <div id="main" class="flex layout-column" tabindex="-1" role="main">
+  <div id="main" class="flex layout-fill layout-column" tabindex="-1" role="main">
     {{outlet}}
 
 
