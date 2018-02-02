@@ -18,6 +18,7 @@ export default Ember.Controller.extend({
                     weight_of_one_unit:weight_of_one_unit
 
                 });
+                
                 var store = this.get('store')
                 newCrop.save();
             }

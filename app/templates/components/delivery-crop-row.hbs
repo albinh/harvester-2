@@ -1,23 +1,19 @@
 {{#if showEditDeliveryCropDialog}}
     {{#paper-form onSubmit=(action "closeEditDeliveryCropDialog") as |form|}}
-
         {{#paper-dialog fullscreen=false onClose=(action "closeEditDeliveryCropDialog" "cancel")}}
             {{#paper-dialog-content}}
                 <h2 class="md-title">{{dc.crop_form.crop.name}} ({{dc.crop_form.name}})</h2>
-
-
                 <div class="layout-row ">
                     {{paper-input label="Mängd" class="flex-50" value=dc.amount onChange=(action (mut dc.amount))}}
-                    {{#paper-select label="enhet" class="flex-50" disabled=disableSelect label="" options=order_types selected=dc.order_type onChange=(action
-                        (mut dc.order_type)) as |order_type|}}
+                    {{#paper-select label="enhet" class="flex-50" disabled=disableSelect label="" options=order_types selected=dc.order_type
+                        onChange=(action (mut dc.order_type)) as |order_type|}}
                         {{order_type}}
                     {{/paper-select}}
-                    </div>
-
-                    <div class="layout-row ">
+                </div>
+                <div class="layout-row ">
                     {{paper-input label="Pris" class="flex-50" value=dc.price onChange=(action (mut dc.price))}}
-                    {{#paper-select label="enhet" class="flex-50" disabled=disableSelect label="" options=price_types selected=dc.price_type onChange=(action
-                        (mut dc.price_type)) as |price_type|}}
+                    {{#paper-select label="enhet" class="flex-50" disabled=disableSelect label="" options=price_types selected=dc.price_type
+                        onChange=(action (mut dc.price_type)) as |price_type|}}
                         {{price_type}}
                     {{/paper-select}}
                 </div>

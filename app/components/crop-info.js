@@ -14,23 +14,32 @@ export default Ember.Component.extend({
 
         
 
-        closeAddCropFormDialog(result, cropFormName) {
+        closeAddCropFormDialog(result, cropName,countable, weight_of_one_unit) {
             if (result === 'ok') {
-                console.log(cropFormName);
+                console.log(cropName);
                 var crop = this.get('dc');
                 console.log(crop);
-                var store = this.get('store');
-                var newCropForm = store.createRecord('crop_form', {
-                    name: cropFormName,
-                    crop:crop
-                });
 
-                newCropForm.save();
-                crop.get('forms').pushObject(newCropForm);
-                crop.save();
-            }
-            
-            this.set('showAddCropFormDialog', false);
-        }
+                    var newCrop = this.get('store').createRecord('crop', {
+                        name:       cropName,
+                        countable:  countable,
+                        weight_of_one_unit:weight_of_one_unit,
+                        base_form:crop
+
+                    });
+                    var store = this.get('store')
+                    newCrop.save();
+
+                    crop.get('forms').pushObject(newCrop);
+                    crop.save();
+
+                }
+                this.set('showAddCropDialog', false);
+            },
+    
+
+
+
+                
     }
 });
