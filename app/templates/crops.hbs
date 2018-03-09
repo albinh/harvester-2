@@ -4,13 +4,13 @@
     {{#paper-dialog-content}}
       <div class="layout-column">
         <h3>Ny gröda</h3>
-              {{paper-input label="namn på gröda" placeholder="namn på gröda" autofocus=true value=cropName onChange=(action (mut cropName))}}
+        {{paper-input label="namn på gröda" placeholder="namn på gröda" autofocus=true value=cropName onChange=(action (mut cropName))}}
 
-        {{#paper-checkbox value=countable onChange=(action (mut countable))}} 
-        Kan räknas styckvis
+        {{#paper-checkbox value=countable onChange=(action (mut countable))}}
+          Kan räknas styckvis
         {{/paper-checkbox}}
         {{paper-input label="vikt per enhet" disabled=(not countable) value=weight_of_one_unit onChange=(action (mut weight_of_one_unit)) }}
-        </div>
+      </div>
     {{/paper-dialog-content}}
 
     {{#paper-dialog-actions class="layout-row" }}
@@ -21,15 +21,6 @@
 
   {{/paper-dialog}}
 {{/if}}
-
-
-
-
-
-
-
-
-
 
 {{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
   {{#toolbar.tools}}
@@ -50,12 +41,12 @@
 
 <div class="md-padding doc-content">
   <div class="md-content">
-     
+
     {{#paper-list}}
       {{#each model as |dc|}}
 
         {{#if dc.is_base_form}}
-        {{#crop-info  is_form=false dc=dc}}{{/crop-info}}
+          {{#crop-info is_form=false dc=dc}}{{/crop-info}}
         {{/if}}
       {{/each}}
 

@@ -34,7 +34,7 @@ export default Ember.Component.extend({
                     crop.save();
 
                 }
-                this.set('showAddCropDialog', false);
+                this.set('showAddCropFormDialog', false);
             },
     
 

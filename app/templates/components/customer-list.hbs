@@ -1,19 +1,36 @@
 {{yield}}
 
 
+
 {{#if showAddCustomerDialog}}
   {{#paper-dialog fullscreen=false onClose=(action "closeAddCustomerDialog" "cancel") origin=dialogOrigin}}
-
-
-
     {{#paper-dialog-content}}
-      <h2 class="md-title">Ny kund (kategori: {{category.name}})</h2>
+      <h2 class="md-title">Ny kund</h2>
       {{paper-input placeholder="namn" autofocus=true value=customerName onChange=(action (mut customerName))}}
 
-      {{#paper-select disabled=false label="Kategori" options=customerCategories selected=category onChange=(action (mut category)) as
-        |category|}}
-        {{category.name}}
-      {{/paper-select}}
+  
+  {{#paper-autocomplete
+    required=true
+    onCreate=(action "addCategory")
+    options=customerCategories
+    selected=selectedCategory
+              searchField="name"
+          labelPath="name"
+
+    label="Select a Country..."
+    loadingMessage="..."
+    noMatchesMessage="Skapa ny kategori?"
+    onSelectionChange=(action (mut selectedCategory)) as |category select|}}
+    {{paper-autocomplete-highlight
+      label=category.name
+      searchText=select.searchText
+      flags="i"}}
+    {{/paper-autocomplete}}
+
+
+
+
+      
 
 
     {{/paper-dialog-content}}
@@ -21,60 +38,56 @@
     {{#paper-dialog-actions class="layout-row" }}
       <span class="flex"></span>
       {{#paper-button primary=true onClick=(action "closeAddCustomerDialog" "cancel")}}Avbryt{{/paper-button}}
-      {{#paper-button primary=true onClick=(action "closeAddCustomerDialog" "ok" customerName category)}}Skapa kategory{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "closeAddCustomerDialog" "ok" customerName selectedCategory)}}Skapa kund{{/paper-button}}
     {{/paper-dialog-actions}}
 
   {{/paper-dialog}}
 {{/if}}
 
-{{#paper-tabs
-  center=false
-  stretch=true
-  borderBottom=true
-  selected=cTab
-  onChange=(action (mut cTab)) as |tabs|}}
-{{#tabs.tab value="all"}}
- Alla
- {{/tabs.tab}}
-{{#each customerCategories as |category|}}
 
-{{#tabs.tab value=category}}
- {{category.name}}
-{{/tabs.tab}}
-{{/each}}
-{{#tabs.tab value="new" }}
- + Ny kategori
-{{/tabs.tab}}
-{{/paper-tabs}}
 
-{{#if showNew}}
-  NYTT!
-  {{else}}
-  <div class="layout-row layout-wrap layout-xs-column">
-  {{#each customers as |customer|}}
-  <div class="layout-column flex-noshrink flex-xs-100 flex-50">
-    <div class="flex-grow">
-    {{#paper-card as |card|}}
-      {{#card.title as |title|}}
-      {{#title.text as |text|}}
-          {{#text.headline}}asdf{{customer.name}}{{/text.headline}}
-          {{#text.subhead}}{{customer.category.name}}{{/text.subhead}}
-          {{/title.text}}
-    {{/card.title}}
-    {{#card.actions}}
-        {{#paper-button}}Visa leveranser{{/paper-button}}
-        {{#paper-button}}Ny leverans{{/paper-button}}
+    {{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+      {{#toolbar.tools}}
+        {{#paper-sidenav-toggle name="left" as |toggleAction|}}
+          {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+            {{paper-icon "menu"}}
+          {{/paper-button}}
+        {{/paper-sidenav-toggle}}
+        <h2>
+          Kunder
 
-    {{/card.actions}}
-    {{/paper-card}}
-    </div>
-    </div>
+        </h2>
+    <span class="flex"></span>
+
+    {{#paper-button onClick=(action "openAddCustomerDialog") iconButton=true}}
+      {{paper-icon "add"}}
+    {{/paper-button}}
+
+
+      {{/toolbar.tools}}
+    {{/paper-toolbar}}
 
 
 
-  {{/each}}
+
+<div class="md-padding doc-content">
+  <div class="md-content">
+
+    {{#paper-list}}
+      {{#each model as |customer|}}
+
+          {{#customer-info customer=customer}}{{/customer-info}}
+      {{/each}}
+
+    {{/paper-list}}
+
+
+  </div>
 </div>
 
 
-{{#paper-button onClick=(action "openAddCustomerDialog")}}Lägg till kund{{/paper-button}}
-{{/if}}
+
+
+
+
+

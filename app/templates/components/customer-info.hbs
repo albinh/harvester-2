@@ -1,0 +1,50 @@
+{{yield}}
+
+
+
+{{#paper-item class="md-2-line" as |controls|}}
+
+    <div class="md-list-item-text">
+        <h3> {{customer.name}} </h3>
+
+        <p> {{customer.category.name}}</p>
+
+    </div>
+    <div class="md-secondary-container">
+
+
+
+        {{#paper-menu isOpen=menuTwoIsOpen as |menu|}}
+            {{#menu.trigger}}
+                {{#paper-button onClick=null iconButton=true}}
+                    {{paper-icon "menu" class="md-menu-origin"}}
+                {{/paper-button}}
+            {{/menu.trigger}}
+
+            {{#menu.content as |content|}}
+                {{#content.menu-item onClick="openAddCropFormDialog" }}
+                    {{paper-icon "add" class="md-menu-align-target"}}
+                    <span>Ny leverans</span>
+                {{/content.menu-item}}
+
+                {{#content.menu-item onClick="openAddCropFormDialog" }}
+                    {{paper-icon "add" class="md-menu-align-target"}}
+                    <span>Visa leveranser</span>
+                {{/content.menu-item}}
+
+                {{#content.menu-item onClick="openAddCropFormDialog" }}
+                    {{paper-icon "add" class="md-menu-align-target"}}
+                    <span>Ändra kategori</span>
+                {{/content.menu-item}}
+
+            {{/menu.content}}
+
+        {{/paper-menu}}
+
+
+    </div>
+
+
+
+
+{{/paper-item}}

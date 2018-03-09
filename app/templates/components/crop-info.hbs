@@ -4,19 +4,19 @@
     {{#paper-dialog-content}}
       <div class="layout-column">
         <h3>Variant av {{dc.name}}</h3>
-              {{paper-input label="namn på gröda" placeholder="namn på variant" autofocus=true value=cropName onChange=(action (mut cropName))}}
+        {{paper-input label="namn på gröda" placeholder="namn på variant" autofocus=true value=cropName onChange=(action (mut cropName))}}
 
-        {{#paper-checkbox value=countable onChange=(action (mut countable))}} 
-        Kan räknas styckvis
+        {{#paper-checkbox value=countable onChange=(action (mut countable))}}
+          Kan räknas styckvis
         {{/paper-checkbox}}
         {{paper-input label="vikt per enhet" disabled=(not countable) value=weight_of_one_unit onChange=(action (mut weight_of_one_unit)) }}
-        </div>
+      </div>
     {{/paper-dialog-content}}
 
     {{#paper-dialog-actions class="layout-row" }}
       <span class="flex"></span>
       {{#paper-button primary=true onClick=(action "closeAddCropFormDialog" "cancel")}}Avbryt{{/paper-button}}
-      {{#paper-button primary=true onClick=(action "closeAddCropFormDialog" "ok" cropName)}}Spara ny gröda{{/paper-button}}
+      {{#paper-button primary=true onClick=(action "closeAddCropFormDialog" "ok" cropName countable weight_of_one_unit)}}Spara ny gröda{{/paper-button}}
     {{/paper-dialog-actions}}
 
   {{/paper-dialog}}
@@ -27,9 +27,9 @@
 
   {{#if (not is_form)}}
     <img src="https://www.wexthuset.com/images/products/johnsons-seeds/fro-till-morot-norfolk-f1.jpg" class="md-avatar">
- {{else}}
- <div class=md-avatar></div>
-     
+  {{else}}
+    <div class=md-avatar></div>
+
 
   {{/if}}
   <div class="md-list-item-text">
@@ -38,27 +38,31 @@
     {{else}}
       <h4> {{dc.name}} (av {{dc.base_form.name}})</h4>
     {{/if}}
-    <p> ca 4kg/st</p>
+    {{#if dc.countable}}
+      <p> ca {{dc.weight_of_one_unit}} kg/st</p>
+    {{/if}}
   </div>
   <div class="md-secondary-container">
-    {{#paper-menu isOpen=menuTwoIsOpen as |menu|}}
-      {{#menu.trigger}}
-        {{#paper-button onClick=null iconButton=true}}
-          {{paper-icon "menu" class="md-menu-origin"}}
-        {{/paper-button}}
-      {{/menu.trigger}}
 
-      {{#menu.content as |content|}}
+    {{#if (not is_form)}}
 
+      {{#paper-menu isOpen=menuTwoIsOpen as |menu|}}
+        {{#menu.trigger}}
+          {{#paper-button onClick=null iconButton=true}}
+            {{paper-icon "menu" class="md-menu-origin"}}
+          {{/paper-button}}
+        {{/menu.trigger}}
+
+        {{#menu.content as |content|}}
           {{#content.menu-item onClick="openAddCropFormDialog" }}
             {{paper-icon "add" class="md-menu-align-target"}}
             <span>Lägg till variant</span>
           {{/content.menu-item}}
 
-      {{/menu.content}}
+        {{/menu.content}}
 
-    {{/paper-menu}}
-
+      {{/paper-menu}}
+    {{/if}}
 
   </div>
 

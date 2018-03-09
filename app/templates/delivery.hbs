@@ -24,49 +24,45 @@
 
 
 
-    {{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
-      {{#toolbar.tools}}
+{{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+    {{#toolbar.tools}}
         {{#paper-sidenav-toggle name="left" as |toggleAction|}}
-          {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
-            {{paper-icon "menu"}}
-          {{/paper-button}}
+            {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+                {{paper-icon "menu"}}
+            {{/paper-button}}
         {{/paper-sidenav-toggle}}
-        
+
         <h2>
-          {{model.customer}}
+            {{model.customer}}
 
         </h2>
         <h3>2017-04-03</h3>
-      {{/toolbar.tools}}
-    {{/paper-toolbar}}
+    {{/toolbar.tools}}
+{{/paper-toolbar}}
 
 
-    <div class="md-padding doc-content">
-      <div class="md-content">
+<div class="md-padding doc-content">
+    <div class="md-content">
 
 
 
 
 
-{{#paper-list}}
+        {{#paper-list}}
 
-    {{#paper-subheader}}Färdiga {{/paper-subheader}}
-        {{#each model.crops as |dc|}}
-        {{delivery-crop-row dc=dc}}
-        {{/each}}
-        {{#paper-item class="md-2-line" as |controls|}}
+            {{#paper-subheader}}Färdiga {{/paper-subheader}}
+            {{#each model.crops as |dc|}}
+                {{delivery-crop-row dc=dc}}
+            {{/each}}
+            {{#paper-item class="md-2-line" as |controls|}}
 
-  {{#paper-button onClick=(action "show_add_crop_dialog")  class="md-avatar" primary=true raised=true mini=true}}{{paper-icon "add"}}{{/paper-button}}
+                {{#paper-button onClick=(action "show_add_crop_dialog") class="md-avatar" primary=true raised=true mini=true}}{{paper-icon "add"}}{{/paper-button}}
 
-<div class="md-list-item-text">
-    <h3>Lägg till</h3>
-    <h4>gröda i beställning</h4>
-</div>
-
-    {{/paper-item}}
-
-{{/paper-list}}
-
-
-      </div>
+                <div class="md-list-item-text">
+                    <h3>Lägg till</h3>
+                    <h4>gröda i beställning</h4>
+                </div>
+            {{/paper-item}}
+        {{/paper-list}}
     </div>
+</div>

@@ -7,7 +7,4 @@ export default DS.Model.extend({
     order_type:         DS.attr('string'),
     price:              DS.attr('number'),
     price_type:         DS.attr('string')
-
-    
-
 });
