@@ -6,10 +6,6 @@ export default Ember.Component.extend({
         return this.get('store').findAll('customer-category');
     }),
     
-
-
-
-
     actions: {
 
         addCategory (name){
@@ -41,6 +37,8 @@ export default Ember.Component.extend({
                 customerCategory.get('customers').pushObject(newCustomer);
                 customerCategory.save();
             }
+            customerName="";
+            customerCategory=null;
             this.set('showAddCustomerDialog', false);
         },
     }

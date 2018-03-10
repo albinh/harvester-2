@@ -1,9 +1,57 @@
 
-Leveranser
-<dl>
-{{#each model as |delivery|}}
-    <dt>{{#link-to "delivery" delivery}}{{delivery.customer}}{{/link-to}}</dt>
-    <dd>{{delivery.date}}</dd>
-{{/each}}
-</dl>
-<button {{action "add"}}>  add </button>
+
+    {{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+      {{#toolbar.tools}}
+        {{#paper-sidenav-toggle name="left" as |toggleAction|}}
+          {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+            {{paper-icon "menu"}}
+          {{/paper-button}}
+        {{/paper-sidenav-toggle}}
+        <h2>
+          Leveranser
+
+        </h2>
+            <span class="flex"></span>
+    {{#paper-button onClick=(action "openAddDeliveryDialog") iconButton=true}}
+      {{paper-icon "add"}}
+    {{/paper-button}}
+
+
+      {{/toolbar.tools}}
+    {{/paper-toolbar}}
+
+
+    <div class="md-padding doc-content">
+      <div class="md-content">
+          {{delivery-list}}
+      </div>
+    </div>
+
+{{outlet}}
+
+
+{{#if showAddDeliveryDialog}}
+    {{#paper-dialog fullscreen=false onClose=(action "closeAddDeliveryDialog" "cancel") origin=dialogOrigin}}
+        {{#paper-dialog-content}}
+            <h2 class="md-title">Välj kund</h2>
+            {{#paper-select disabled=false label="kund" options=customers selected=newCustomer onChange=(action (mut newCustomer)) as |customer|}}
+                {{customer.name}}
+            {{/paper-select}}
+              {{paper-input class="flex" label="Leveransdatum" type="date" value=newDate onChange=(action (mut newDate))}}
+
+
+
+        {{/paper-dialog-content}}
+
+        {{#paper-dialog-actions class="layout-row" }}
+            <span class="flex"></span>
+            {{#paper-button primary=true onClick=(action "closeAddDeliveryDialog" "cancel")}}Avbryt{{/paper-button}}
+            {{#paper-button primary=true onClick=(action "closeAddDeliveryDialog" "ok" newCustomer newDate)}}Ny beställning{{/paper-button}}
+        {{/paper-dialog-actions}}
+    {{/paper-dialog}}
+{{/if}}
+
+
+
+
+

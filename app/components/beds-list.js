@@ -7,7 +7,6 @@ export default Ember.Component.extend({
     
         actions: {
             /* Prompt dialog */
-            formName: '',
             openAddBedsDialog(/* param, event */) {
                 this.set('numBeds',1);
                 this.set('bedLength',1);
@@ -18,7 +17,6 @@ export default Ember.Component.extend({
     
             closeAddBedsDialog(result, numBeds,bedLength) {
                 if (result === 'ok') {
-                    {{debugger}}
                     var field = this.get('field');
                     var store = this.get('store');
                         

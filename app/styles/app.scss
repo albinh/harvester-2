@@ -9,8 +9,17 @@ md-sidenav.site-sidenav {
 md-sidenav button {
     text-align:left !important;
 }
+html {
+    height:100%;
+
+}
+
+.site-nav-container {
+    height:100%;
+}
 
 md-sidenav {
+    
     background:color($primary, '100');
 }
 
@@ -58,5 +67,5 @@ button.md-avatar {
 }
 
 body > .ember-view {
-    height:100%;    
+    min-height:100%;    
 }

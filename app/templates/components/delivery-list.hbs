@@ -1,0 +1,18 @@
+<div class="layout-column">
+    <div class="flex">
+        {{#paper-select options=customers label="Kunder" selected=selectedCustomer onChange=(action (mut selectedCustomer)) as |customer|}}
+            {{customer.name}}
+        {{/paper-select}}
+    </div>
+    <div class="flex">
+        {{#paper-checkbox value=showCompleted onChange=(action (mut showCompleted))}}
+            Visa levererade
+        {{/paper-checkbox}}
+    </div>
+</div>
+
+{{#paper-list}}
+    {{#each filteredDeliveries as |delivery|}}
+        {{#delivery-row delivery=delivery}} {{/delivery-row}}
+    {{/each}}
+{{/paper-list}}
