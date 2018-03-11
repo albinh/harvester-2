@@ -10,15 +10,6 @@ export default Ember.Controller.extend({
         return this.store.findAll('crop')        
     }),
 
-    crop_forms: Ember.computed('add_crop', function(){
-
-        var c=this.get('add_crop');
-        if (c==null) {
-            return []
-        } else {
-        return this.get('add_crop').get('forms');
-        }
-    }),
 
     
 
@@ -29,13 +20,13 @@ export default Ember.Controller.extend({
         },
         
         
-        closeAddDeliveryCropFormDialog(result, crop, cropForm) {
+        closeAddDeliveryCropFormDialog(result, crop) {
             if (result === 'ok') {
         
 
             
             let delivery_crop = this.get('store').createRecord('delivery_crop', {
-              crop_form: cropForm,
+              crop: crop,
               amount:0
             });
   

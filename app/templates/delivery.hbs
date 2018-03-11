@@ -1,15 +1,12 @@
 {{#if showAddDeliveryCropFormDialog}}
     {{#paper-dialog fullscreen=false onClose=(action "closeAddDeliveryCropFormDialog" "cancel") origin=dialogOrigin}}
         {{#paper-dialog-content}}
-            <h2 class="md-title">Välj gröda</h2>
-            {{#paper-select disabled=false label="Gröda" options=crops selected=add_crop onChange=(action (mut add_crop)) as |crop|}}
-                {{crop.name}}
+            <h2 class="md-title">Välj produkt</h2>
+            <div class="layout-row">
+            {{#paper-select class="flex" disabled=false label="Gröda" options=crops selected=add_crop onChange=(action (mut add_crop)) as |crop|}}
+                {{crop.long_name}}
             {{/paper-select}}
-
-            {{#paper-select disabled=false label="Variant" options=crop_forms selected=add_cropform onChange=(action (mut add_cropform))
-                as |cropform|}}
-                {{cropform.name}}
-            {{/paper-select}}
+</div>
 
 
         {{/paper-dialog-content}}
@@ -33,10 +30,10 @@
         {{/paper-sidenav-toggle}}
 
         <h2>
-            {{model.customer}}
+            {{model.customer.name}}
 
-        </h2>
-        <h3>2017-04-03</h3>
+        </h2> 
+        <h3> - ({{model.shortDate}})</h3>
     {{/toolbar.tools}}
 {{/paper-toolbar}}
 

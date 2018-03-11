@@ -6,6 +6,10 @@ md-sidenav.site-sidenav {
     background: color($primary, '400');
 }  
 
+.delivery-completed {
+    background:color($color-green,'100');
+}
+
 md-sidenav button {
     text-align:left !important;
 }

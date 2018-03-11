@@ -1,5 +1,32 @@
+{{#if showUploadImageDialog}}
+  
+  {{#paper-dialog fullscreen=true clickOutsideToClose=true origin=dialogOrigin onClose=(action "closeUploadImageDialog" "cancel")}}
+    {{#paper-dialog-content}}
+      <h2>Ladda upp fil</h2>
+    {{x-file-input name="files"
+      multiple=true
+      action="didSelectFiles"
+      alt="Välj en fil"
+      class="btn btn-success-outline btn-block"}}
+    
+      
+      {{#if progress}}
+        <div style="margin-top:50px;">
+          <progress class="progress progress-success" value= {{progress}} max="100"></progress>
+        </div>
+      {{/if}}
+
+      {{#if status}}
+        <p class="text-primary">{{progressText}}</p>
+      {{/if}}
+
+    {{/paper-dialog-content}}
+  {{/paper-dialog}}
+{{/if}}
+
+
 {{#if showAddCropFormDialog}}
-  {{#paper-dialog fullscreen=true onClose=(action "closeAddCropFormDialog" "cancel") origin=dialogOrigin}}
+  {{#paper-dialog fullscreen=true clickOutsideToClose=true onClose=(action "closeAddCropFormDialog" "cancel") origin=dialogOrigin}}
 
     {{#paper-dialog-content}}
       <div class="layout-column">
@@ -23,10 +50,12 @@
 {{/if}}
 
 
+
+
 {{#paper-item class="md-2-line" as |controls|}}
 
   {{#if (not is_form)}}
-    <img src="https://www.wexthuset.com/images/products/johnsons-seeds/fro-till-morot-norfolk-f1.jpg" class="md-avatar">
+    <img src="{{dc.imageURL}}" class="md-avatar">
   {{else}}
     <div class=md-avatar></div>
 
@@ -36,7 +65,7 @@
     {{#if (not is_form)}}
       <h3> {{dc.name}} </h3>
     {{else}}
-      <h4> {{dc.name}} (av {{dc.base_form.name}})</h4>
+      <h4> {{dc.long_name}} </h4>
     {{/if}}
     {{#if dc.countable}}
       <p> ca {{dc.weight_of_one_unit}} kg/st</p>
@@ -59,6 +88,11 @@
             <span>Lägg till variant</span>
           {{/content.menu-item}}
 
+          {{#content.menu-item onClick="openUploadImageDialog"}} 
+          {{paper-icon "photo" class="md-menu-align-target"}}
+          <span>Ladda upp bild</span>
+
+          {{/content.menu-item}}
         {{/menu.content}}
 
       {{/paper-menu}}

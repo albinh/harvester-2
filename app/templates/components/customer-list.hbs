@@ -6,10 +6,10 @@
   {{#paper-dialog fullscreen=false onClose=(action "closeAddCustomerDialog" "cancel") origin=dialogOrigin}}
     {{#paper-dialog-content}}
       <h2 class="md-title">Ny kund</h2>
-      {{paper-input placeholder="namn" autofocus=true value=customerName onChange=(action (mut customerName))}}
+      {{paper-input placeholder="namn"  class="flex"  autofocus=true value=customerName onChange=(action (mut customerName))}}
 
   
-  {{#paper-autocomplete
+  {{#paper-autocomplete class="flex"
     required=true
     onCreate=(action "addCategory")
     options=customerCategories
@@ -17,7 +17,7 @@
               searchField="name"
           labelPath="name"
 
-    label="Select a Country..."
+    label="Välj kategori..."
     loadingMessage="..."
     noMatchesMessage="Skapa ny kategori?"
     onSelectionChange=(action (mut selectedCategory)) as |category select|}}

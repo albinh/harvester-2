@@ -1,0 +1,28 @@
+{{#paper-card  class="flex-100 delivery-completed" as |card|}}
+    {{#card.title as |title|}}
+        {{#title.text as |text|}}
+            {{#text.headline}}{{delivery.customer.name}}{{/text.headline}}
+            {{#text.subhead}}{{delivery.shortDate}}{{/text.subhead}}
+        {{/title.text}}
+
+    {{/card.title}}
+    {{#card.content}}
+
+
+        {{#paper-grid-list cols="3" rowHeight="2:1" gutter="12px gt-sm-8px" as |grid|}}
+        {{#each delivery.crops as |crop|}}
+            {{#grid.tile style=backgroundImage class="gray" rowspan="1" colspan="sm-1 gt-sm-1" as |tile|}}
+                <div style="background-size:cover;background-image:url('{{crop.crop.imageURLSub}}');height:100%;width:100%">&nbsp;</div>
+                {{#tile.footer}}
+                    <h3>{{crop.crop.long_name}}</h3>
+                {{/tile.footer}}
+            {{/grid.tile}}
+            {{/each}}
+        {{/paper-grid-list}}
+
+
+    {{/card.content}}
+    {{#card.actions}}
+        {{#paper-button href=(href-to "delivery" delivery)}}Visa detaljer{{/paper-button}}
+    {{/card.actions}}
+{{/paper-card}}

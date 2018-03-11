@@ -13,10 +13,11 @@ export default Ember.Component.extend({
                 name: name
             });
             newCategory.save();
+            this.set('selectedCategory',newCategory);
         },
 
         /* Prompt dialog */
-        customerName: '',
+        // customerName: '',
      
         openAddCustomerDialog(/* param, event */) {
            

@@ -4,6 +4,7 @@ export default Ember.Controller.extend({
     actions: {
         /* Prompt dialog */
         cropName: '',
+        countable:false,
         openCropDialog(/* param, event */) {
             this.set('dialogOrigin', null);
             this.set('showAddCropDialog', true);
@@ -12,6 +13,7 @@ export default Ember.Controller.extend({
         closeAddCropDialog(result, cropName,countable, weight_of_one_unit) {
             if (result === 'ok') {
                 console.log(cropName);
+                {{debugger}}
                 var newCrop = this.store.createRecord('crop', {
                     name:       cropName,
                     countable:  countable,
