@@ -1,0 +1,45 @@
+{{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+    {{#toolbar.tools}}
+        {{#paper-sidenav-toggle name="left" as |toggleAction|}}
+            {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+                {{paper-icon "menu"}}
+            {{/paper-button}}
+        {{/paper-sidenav-toggle}}
+
+        <h2>Registrera skörd
+
+
+
+        </h2>
+        <h3> - ({{model.delivery.shortDate}})</h3>
+    {{/toolbar.tools}}
+{{/paper-toolbar}}
+
+
+<div class="md-padding doc-content">
+    <div class="md-content">
+        <div class="layout-row">
+            <div class="layout-row flex-50">
+                <div class="layout-column flex-50">
+                    {{paper-input
+    
+                        type="number"
+                        label="Vikt"
+                        value=weight
+                        step="0.1"
+                        onChange=(action (mut weight))
+                    }}
+                </div>
+                <div class="layout-column flex-50">
+                    {{paper-input
+                        type="number"
+                        label="Antal"
+                        value=weight
+                        step="1"
+                        onChange=(action (mut weight))
+                    }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,18 +7,17 @@
 
     {{/card.title}}
     {{#card.content}}
+<md-chips class="md-contact-chips md-focused">
+  <md-chips-wrap class="md-chips md-contact-chips  md-readonly" tabindex="-1" >
 
+{{#each delivery.crops as |crop|}}
 
-        {{#paper-grid-list cols="3" rowHeight="2:1" gutter="12px gt-sm-8px" as |grid|}}
-        {{#each delivery.crops as |crop|}}
-            {{#grid.tile style=backgroundImage class="gray" rowspan="1" colspan="sm-1 gt-sm-1" as |tile|}}
-                <div style="background-size:cover;background-image:url('{{crop.crop.imageURLSub}}');height:100%;width:100%">&nbsp;</div>
-                {{#tile.footer}}
-                    <h3>{{crop.crop.long_name}}</h3>
-                {{/tile.footer}}
-            {{/grid.tile}}
-            {{/each}}
-        {{/paper-grid-list}}
+{{delivery-crop-chip dc=crop}}
+{{/each}}
+</md-chips-wrap>
+</md-chips>
+
+       
 
 
     {{/card.content}}

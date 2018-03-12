@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
         closeAddCropDialog(result, cropName,countable, weight_of_one_unit) {
             if (result === 'ok') {
                 console.log(cropName);
-                {{debugger}}
+                weight_of_one_unit=weight_of_one_unit.replace(/,/g, '.');
                 var newCrop = this.store.createRecord('crop', {
                     name:       cropName,
                     countable:  countable,

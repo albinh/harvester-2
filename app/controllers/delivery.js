@@ -24,19 +24,18 @@ export default Ember.Controller.extend({
             if (result === 'ok') {
         
 
-            
+            let delivery = this.get('model');
             let delivery_crop = this.get('store').createRecord('delivery_crop', {
               crop: crop,
+              delivery:delivery,
               amount:0
             });
   
-            let delivery = this.get('model');
             let delivery_crops = delivery.get('crops')   
             delivery_crops.addObject(delivery_crop);
             
             delivery_crop.save().then(function() {
                 return delivery.save();
-
             })
         }
         this.set('showAddDeliveryCropFormDialog', false);

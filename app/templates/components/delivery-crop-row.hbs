@@ -36,10 +36,10 @@
     <img src="{{dc.crop.imageURLSub}}" class="md-avatar">
     <div class="md-list-item-text">
         <h3>{{dc.crop.long_name}}</h3>
-        <h4>{{dc.amount}} {{dc.order_type}} (2 kg redan skördat</h4>
-        <p> 00.00kr ({{dc.price}}{{dc.price_type}})</p>
+        <h4>{{dc.amount}} {{dc.order_type}} </h4>
+        <p> {{dc.calculatedValue}} kr({{dc.price}}{{dc.price_type}})</p>
     </div>
-    {{#controls.button secondary=true iconButton=true }}
+    {{#controls.button href=(href-to "register-harvest" dc) secondary=true iconButton=true }}
         {{paper-icon "vertical_align_bottom"}}
     {{/controls.button}}
 {{/paper-item}}
