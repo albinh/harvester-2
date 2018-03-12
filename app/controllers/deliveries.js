@@ -24,7 +24,7 @@ export default Ember.Controller.extend({
             if (result === 'ok') {
                 let delivery = this.get('store').createRecord('delivery', {
                     customer: newCustomer,
-                    date:new Date(newDate)
+                    date:newDate
                 });
                 {{debugger}}
 

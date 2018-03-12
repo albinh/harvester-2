@@ -7,11 +7,8 @@
         {{/paper-sidenav-toggle}}
 
         <h2>Registrera skörd
-
-
-
         </h2>
-        <h3> - ({{model.delivery.shortDate}})</h3>
+        <h3> - ({{model.delivery.date}})</h3>
     {{/toolbar.tools}}
 {{/paper-toolbar}}
 
@@ -19,18 +16,17 @@
 <div class="md-padding doc-content">
     <div class="md-content">
         <div class="layout-row">
-            <div class="layout-row flex-50">
-                <div class="layout-column flex-50">
+            <div class="layout-column flex-gt-md-50">
+
                     {{paper-input
     
                         type="number"
                         label="Vikt"
                         value=weight
                         step="0.1"
+                        class="flex-100"
                         onChange=(action (mut weight))
                     }}
-                </div>
-                <div class="layout-column flex-50">
                     {{paper-input
                         type="number"
                         label="Antal"
@@ -38,7 +34,18 @@
                         step="1"
                         onChange=(action (mut weight))
                     }}
-                </div>
+                    <p> Beställt: 45kg</p>
+                    <p> Återstår: 10kg (efter denna skörd)</p>
+
+                {{#paper-button class ="flex-100" raised=true primary=true}}Registrera skörd{{/paper-button}}
+
+
+
+                
+
+
+
+
             </div>
         </div>
     </div>

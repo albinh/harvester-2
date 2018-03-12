@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.Model.extend({
     delivery:           DS.belongsTo('delivery', { async: true, inverse: null }),
@@ -7,8 +8,10 @@ export default DS.Model.extend({
     order_type:         DS.attr('string'),
     price:              DS.attr('number'),
     price_type:         DS.attr('string'),
-    calculatedValue:    Ember.computed('order_type','price','price_type','price', function() {
-        {{debugger}}
+
+    harvests:           DS.hasMany('harvest', {async:true, inverse:null}),
+
+    calculatedValue:    Ember.computed('order_type','price','price_type','price','crop.weight_of_one_unit', function() {
         if (this.get('order_type')=="kg" && this.get('price_type')=="kr/kg") {
             return this.get('amount') * this.get('price');
         } else if (this.get('order_type')=="st" && this.get('price_type')=="kr/kg") {
