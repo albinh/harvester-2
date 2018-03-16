@@ -8,27 +8,9 @@ export default Ember.Component.extend({
             this.set('showAddCropFormDialog', true);
         },
 
-        openAddVarietyDialog() {
-            this.set('showAddVarityDialog', true)
-        },
-
-        closeAddVarietyDialog() {
-            this.set('showAddVarityDialog', false)
-            if (result === 'ok') {
-                var crop = this.get('crop');
-                var newVariety = this.get('store').createRecord('varity', {
-                    name: this.get('newVarityName'),
-                    type: this.get('newVarityType'),
-                    
-                    rows_per_bed: this.get('newVarietyRows'),
-                    spacing_in_row: this.get('newVarietySpacing'),
-                    seeds_per_row: DS.attr('number'),
-                    crop: DS.belongsTo('crop', { async: true, inverse: null })
-                
-
-                })
-            }
-            this.set('showAddVarityDialog',false)
+        addVariety() {
+            this.set('newVariety',this.get('store').createRecord('variety'));
+            this.set('showNewVariety',true);
         },
 
         closeAddCropFormDialog(result, cropName,countable, weight_of_one_unit) {

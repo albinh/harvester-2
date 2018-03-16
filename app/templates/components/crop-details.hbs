@@ -19,55 +19,6 @@
     {{/toolbar.tools}}
 {{/paper-toolbar}}
 
-{{#if showAddVarityDialog}}
-
-        {{#paper-dialog fullscreen=false onClose=(action "closeAddVarietyDialog" "cancel")}}
-            {{#paper-dialog-content class="layout-row layout-wrap"}}
-                <h2 class="md-title">Sort av {{crop.name}} </h2>
-
-                {{#paper-form as |form|}}
-                {{form.input class="flex-100" label="namn" value=newVarityName onChange=(action (mut newVarityName)) required=true}}
-
-                {{#form.select 
-                    class="flex-100"
-                    options=types
-                    selected=newVarityType
-                    required=true
-                    label="typ"
-                    onChange=(action (mut newVarityType)) as |type|}}
-                    {{type}}
-                 {{/form.select}}
-
-                {{form.input class="flex" label="rader per bädd" type="number" min=1 max=10 value=newVarityRows onChange=(action (mut newVarityRows)) required=true}}
-
-                 {{#if (eq newVarityType "seeded")}}
-                    {{form.input class="flex" label="antal frö/radmeter" type="number" min=1 max=10000 value=newVaritySeeds onChange=(action (mut newVaritySeeds)) required=true}}
-                 {{/if}}
-
-                 {{#if (eq newVarityType "planted")}}
-                    {{form.input class="flex" label="Avstånd mellan plantor (cm)" type="number" min=1 max=200 value=newVaritySpacing onChange=(action (mut newVaritySpacing)) required=true}}
-                    {{form.input class="flex" label="Behållare" type="number" min=1 max=500 value=newContainer onChange=(action (mut newContainer)) required=true}}
-
-                    
-                 {{/if}}
-
-                
-
-                {{/paper-form}}
-
-
-            {{/paper-dialog-content}}
-
-            {{#paper-dialog-actions class="layout-row" }}
-                <span class="flex"></span>
-                {{#paper-button primary=true onClick=(action "closeAddVarietyDialog" "cancel")}}Avbryt{{/paper-button}}
-                {{#paper-button primary=true onClick=(action "closeAddVarietyDialog" "ok" )}}Spara sort{{/paper-button}}
-            {{/paper-dialog-actions}}
-        {{/paper-dialog}}
-{{/if}}
-
-
-
 {{#if showAddCropFormDialog}}
     {{#paper-dialog fullscreen=true clickOutsideToClose=true onClose=(action "closeAddCropFormDialog" "cancel") origin=dialogOrigin}}
 
@@ -92,13 +43,8 @@
     {{/paper-dialog}}
 {{/if}}
 
-
-
 <div class="md-padding doc-content">
     <div class="md-content">
-        {{#if showAddVarityDialog}}
-asdf{{/if}}
-        {{showAddVarityDialog}}
         <div class="layout-row layout-wrap">
             <div class="flex-gt-md-25 flex-100 ">
 
@@ -175,14 +121,20 @@ asdf{{/if}}
                     {{#card.content class="" }}
 
                         {{#paper-list }}
-{{#crop-details-variety}} {{/crop-details-variety}}
+                        
+                        {{#each crop.varieties as |variety|}}
+                            {{#crop-details-variety  crop=crop variety=variety}} {{/crop-details-variety}}
+                        {{/each}}
 
+                        {{#if showNewVariety}}
+                            {{#crop-details-variety onlyForNew=true editing=true crop=crop variety=newVariety}} {{/crop-details-variety}}
+                        {{/if}}
 
                         {{/paper-list}}
                     {{/card.content}}
                     {{#card.actions}}
 
-                        {{#paper-button onClick=(action "openAddVarietyDialog")}}Lägg till sort{{/paper-button}}
+                        {{#paper-button onClick=(action "addVariety")}}Lägg till sort{{/paper-button}}
                     {{/card.actions}}
                 {{/paper-card}}
             </div>

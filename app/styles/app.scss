@@ -18,7 +18,9 @@ html {
 
 }
 .editing {
-        background-color: color($warn);
+        background-color: color($warn,'200');
+        border:solid;
+
       
 }
 .site-nav-container {
