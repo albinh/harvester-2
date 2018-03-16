@@ -11,6 +11,24 @@ export default DS.Model.extend({
 
     harvests:           DS.hasMany('harvest', {async:true, inverse:null}),
 
+    harvestedWeight:    Ember.computed('harvests.@each.weight', function() {
+        let harvests = this.get('harvests');
+        let sum=0;
+        harvests.forEach ((item, index) => {
+            sum=sum+item.get('weight');
+        })
+        return sum;
+    }),
+
+    harvestedCount:    Ember.computed('harvests.@each.count', function() {
+        let harvests = this.get('harvests');
+        let sum=0;
+        harvests.forEach ((item, index) => {
+            sum=sum+item.get('count');
+        })
+        return sum;
+    }),
+
     calculatedValue:    Ember.computed('order_type','price','price_type','price','crop.weight_of_one_unit', function() {
         if (this.get('order_type')=="kg" && this.get('price_type')=="kr/kg") {
             return this.get('amount') * this.get('price');

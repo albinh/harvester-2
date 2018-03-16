@@ -3,12 +3,30 @@
         {{#paper-dialog-content}}
             <h2 class="md-title">Välj produkt</h2>
             <div class="layout-row">
-            {{#paper-select class="flex" disabled=false label="Gröda" options=crops selected=add_crop onChange=(action (mut add_crop)) as |crop|}}
+
+{{#paper-form as |form|}}
+            {{#form.select class="flex" required=true disabled=false label="Gröda" options=crops selected=newCropCrop onChange=(action (mut newCropCrop)) as |crop|}}
                 {{crop.long_name}}
-            {{/paper-select}}
+            {{/form.select}}
+
+
+                <div class="layout-row ">
+                    {{form.input label="Mängd" required=true class="flex-50" value=newCropAmount onChange=(action (mut newCropAmount))}}
+                    {{#paper-select label="enhet" class="flex-50" selected=newCropOrderType label="" options=newCropOrderTypes 
+                        onChange=(action (mut newCropOrderType)) as |order_type|}}
+                        {{order_type}}
+                    {{/paper-select}}
+                </div>
+                <div class="layout-row ">
+                    {{form.input label="Pris" required=true class="flex-50" value=newCropPrice onChange=(action (mut newCropPrice))}}
+                    {{#form.select label="enhet" required=true class="flex-50" selected=newCropPriceType label="" options=newCropPriceTypes 
+                        onChange=(action (mut newCropPriceType)) as |price_type|}}
+                        {{price_type}}
+                    {{/form.select}}
+                </div>
+
+{{/paper-form}}
 </div>
-
-
         {{/paper-dialog-content}}
 
         {{#paper-dialog-actions class="layout-row" }}
@@ -32,7 +50,7 @@
             {{model.customer.name}}
 
         </h2> 
-        <h3> - ({{model.shortDate}})</h3>
+        <h3> - ({{model.date}})</h3>
     {{/toolbar.tools}}
 {{/paper-toolbar}}
 

@@ -1,0 +1,191 @@
+{{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+    {{#toolbar.tools}}
+        {{#paper-sidenav-toggle name="left" as |toggleAction|}}
+            {{#paper-button class="hide-gt-sm" onClick=(action toggleAction) iconButton=true}}
+                {{paper-icon "menu"}}
+            {{/paper-button}}
+        {{/paper-sidenav-toggle}}
+        <h2>
+            {{crop.name}}
+
+        </h2>
+        <span class="flex"></span>
+
+        {{#paper-button onClick=null iconButton=true}}
+            {{paper-icon "add"}}
+        {{/paper-button}}
+
+
+    {{/toolbar.tools}}
+{{/paper-toolbar}}
+
+{{#if showAddVarityDialog}}
+
+        {{#paper-dialog fullscreen=false onClose=(action "closeAddVarietyDialog" "cancel")}}
+            {{#paper-dialog-content class="layout-row layout-wrap"}}
+                <h2 class="md-title">Sort av {{crop.name}} </h2>
+
+                {{#paper-form as |form|}}
+                {{form.input class="flex-100" label="namn" value=newVarityName onChange=(action (mut newVarityName)) required=true}}
+
+                {{#form.select 
+                    class="flex-100"
+                    options=types
+                    selected=newVarityType
+                    required=true
+                    label="typ"
+                    onChange=(action (mut newVarityType)) as |type|}}
+                    {{type}}
+                 {{/form.select}}
+
+                {{form.input class="flex" label="rader per bädd" type="number" min=1 max=10 value=newVarityRows onChange=(action (mut newVarityRows)) required=true}}
+
+                 {{#if (eq newVarityType "seeded")}}
+                    {{form.input class="flex" label="antal frö/radmeter" type="number" min=1 max=10000 value=newVaritySeeds onChange=(action (mut newVaritySeeds)) required=true}}
+                 {{/if}}
+
+                 {{#if (eq newVarityType "planted")}}
+                    {{form.input class="flex" label="Avstånd mellan plantor (cm)" type="number" min=1 max=200 value=newVaritySpacing onChange=(action (mut newVaritySpacing)) required=true}}
+                    {{form.input class="flex" label="Behållare" type="number" min=1 max=500 value=newContainer onChange=(action (mut newContainer)) required=true}}
+
+                    
+                 {{/if}}
+
+                
+
+                {{/paper-form}}
+
+
+            {{/paper-dialog-content}}
+
+            {{#paper-dialog-actions class="layout-row" }}
+                <span class="flex"></span>
+                {{#paper-button primary=true onClick=(action "closeAddVarietyDialog" "cancel")}}Avbryt{{/paper-button}}
+                {{#paper-button primary=true onClick=(action "closeAddVarietyDialog" "ok" )}}Spara sort{{/paper-button}}
+            {{/paper-dialog-actions}}
+        {{/paper-dialog}}
+{{/if}}
+
+
+
+{{#if showAddCropFormDialog}}
+    {{#paper-dialog fullscreen=true clickOutsideToClose=true onClose=(action "closeAddCropFormDialog" "cancel") origin=dialogOrigin}}
+
+        {{#paper-dialog-content}}
+            <div class="layout-column">
+                <h3>Variant av {{dc.name}}</h3>
+                {{paper-input label="namn på variant" placeholder="namn på variant" autofocus=true value=cropName onChange=(action (mut cropName))}}
+
+                {{#paper-checkbox value=countable onChange=(action (mut countable))}}
+                    Kan räknas styckvis
+                {{/paper-checkbox}}
+                {{paper-input label="vikt per enhet" disabled=(not countable) value=weight_of_one_unit onChange=(action (mut weight_of_one_unit)) }}
+            </div>
+        {{/paper-dialog-content}}
+
+        {{#paper-dialog-actions class="layout-row" }}
+            <span class="flex"></span>
+            {{#paper-button primary=true onClick=(action "closeAddCropFormDialog" "cancel")}}Avbryt{{/paper-button}}
+            {{#paper-button primary=true onClick=(action "closeAddCropFormDialog" "ok" cropName countable weight_of_one_unit)}}Spara ny variant{{/paper-button}}
+        {{/paper-dialog-actions}}
+
+    {{/paper-dialog}}
+{{/if}}
+
+
+
+<div class="md-padding doc-content">
+    <div class="md-content">
+        {{#if showAddVarityDialog}}
+asdf{{/if}}
+        {{showAddVarityDialog}}
+        <div class="layout-row layout-wrap">
+            <div class="flex-gt-md-25 flex-100 ">
+
+                {{#paper-card as |card|}}
+                    {{#card.title as |title|}}
+                        {{#title.text as |text|}}
+                            {{#text.headline}}Bild{{/text.headline}}
+
+                        {{/title.text}}
+                    {{/card.title}}
+                    {{#card.content class="" }}
+                    <div class="crop_round_image">
+                        <img class="crop_round_image" src= {{crop.imageURL}} />
+                        </div>
+                    {{/card.content}}
+                    {{#card.actions}}
+
+                        {{#paper-button onClick=(action "openAddCropFormDialog")}}byt bild{{/paper-button}}
+                    {{/card.actions}}
+
+                {{/paper-card}}
+            </div>
+            <div class="flex-gt-md-25 flex-100 ">
+                {{#paper-card as |card|}}
+                    {{#card.title as |title|}}
+                        {{#title.text as |text|}}
+                            {{#text.headline}}Varianter{{/text.headline}}
+
+                        {{/title.text}}
+                    {{/card.title}}
+                    {{#card.content class="" }}
+
+                        {{#paper-list }}
+                            <!-- Lista varianter -->
+                            {{#paper-item class="md-2-line" }}
+                                <div class="md-list-item-text">
+                                    <h3>Lösvikt</h3>
+                                    <h4>
+                                        {{#if crop.countable}} {{crop.weight_of_one_unit}} kg/st {{else}}räknas ej styckvis {{/if}}
+                                    </h4>
+                                </div>
+
+                            {{/paper-item}}
+                            {{#each crop.forms as |form|}}
+                                {{#paper-item class="md-2-line" }}
+                                    <div class="md-list-item-text">
+                                        <h3>{{form.name}}</h3>
+                                        <h4>
+                                            {{#if form.countable}} {{form.weight_of_one_unit}} kg/st {{else}}räknas ej styckvis {{/if}}
+                                        </h4>
+                                    </div>
+
+                                {{/paper-item}}
+                            {{/each}}
+                        {{/paper-list}}
+                    {{/card.content}}
+                    {{#card.actions}}
+
+                        {{#paper-button onClick=(action "openAddCropFormDialog")}}Lägg till variant{{/paper-button}}
+                    {{/card.actions}}
+
+                {{/paper-card}}
+
+                <!-- Lista sorter -->
+            </div>
+            <div class="flex-gt-md-50 flex-100 ">
+                {{#paper-card as |card|}}
+                    {{#card.title as |title|}}
+                        {{#title.text as |text|}}
+                            {{#text.headline}}Sorter{{/text.headline}}
+
+                        {{/title.text}}
+                    {{/card.title}}
+                    {{#card.content class="" }}
+
+                        {{#paper-list }}
+{{#crop-details-variety}} {{/crop-details-variety}}
+
+
+                        {{/paper-list}}
+                    {{/card.content}}
+                    {{#card.actions}}
+
+                        {{#paper-button onClick=(action "openAddVarietyDialog")}}Lägg till sort{{/paper-button}}
+                    {{/card.actions}}
+                {{/paper-card}}
+            </div>
+        </div>
+    </div>
+</div>

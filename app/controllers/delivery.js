@@ -10,7 +10,34 @@ export default Ember.Controller.extend({
         return this.store.findAll('crop')        
     }),
 
+    newCropOrderTypes: Ember.computed('newCropCrop.countable', function(){
+        var a=this.get('newCropCrop');
+        if (!a) {return []};
 
+        var c=a.get('countable');
+
+        
+        if (c) {
+            return ["kg","st"]
+        } else {
+            return ["kg"]
+        };
+
+      }),
+
+      newCropPriceTypes: Ember.computed('newCropCrop.countable', function(){
+        var a=this.get('newCropCrop');
+        if (!a) {return []};
+
+        var c=a.get('countable');
+        
+        if (c) {
+        return ["kr/kg","kr/st"]
+        } else {
+            return ["kr/kg"]
+        }
+
+      }),
     
 
     actions: {
@@ -28,13 +55,16 @@ export default Ember.Controller.extend({
             let delivery_crop = this.get('store').createRecord('delivery_crop', {
               crop: crop,
               delivery:delivery,
-              amount:0
+              amount:this.get('newCropAmount'),
+              order_type:this.get('newCropOrderType'),
+              price:this.get('newCropPrice'),
+              price_type:this.get('newCropPriceType')
             });
   
             let delivery_crops = delivery.get('crops')   
-            delivery_crops.addObject(delivery_crop);
             
             delivery_crop.save().then(function() {
+                delivery_crops.addObject(delivery_crop);
                 return delivery.save();
             })
         }

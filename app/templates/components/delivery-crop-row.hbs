@@ -5,18 +5,14 @@
             {{#paper-dialog-content}}
                 <h2 class="md-title">{{dc.crop.long_name}} </h2>
                 <div class="layout-row ">
+                   
                     {{paper-input label="Mängd" class="flex-50" value=dc.amount onChange=(action (mut dc.amount))}}
-                    {{#paper-select label="enhet" class="flex-50" disabled=disableSelect label="" options=order_types selected=dc.order_type
-                        onChange=(action (mut dc.order_type)) as |order_type|}}
-                        {{order_type}}
-                    {{/paper-select}}
+                    {{paper-input label="Enhet" class="flex-50" disabled=true value=dc.order_type onChange=null}}
+                    
                 </div>
                 <div class="layout-row ">
                     {{paper-input label="Pris" class="flex-50" value=dc.price onChange=(action (mut dc.price))}}
-                    {{#paper-select label="enhet" class="flex-50" disabled=disableSelect label="" options=price_types selected=dc.price_type
-                        onChange=(action (mut dc.price_type)) as |price_type|}}
-                        {{price_type}}
-                    {{/paper-select}}
+                    {{paper-input label="Enhet" class="flex-50" disabled=true value=dc.price_type onChange=null}}
                 </div>
 
 
@@ -36,8 +32,8 @@
     <img src="{{dc.crop.imageURLSub}}" class="md-avatar">
     <div class="md-list-item-text">
         <h3>{{dc.crop.long_name}}</h3>
-        <h4>{{dc.amount}} {{dc.order_type}} </h4>
-        <p> {{dc.calculatedValue}} kr({{dc.price}}{{dc.price_type}})</p>
+        <h4>{{dc.amount}} {{dc.order_type}} ({{dc.harvestedWeight}} skördat) </h4>
+        <p> {{round dc.calculatedValue decimals=2}} kr({{dc.price}}{{dc.price_type}})</p>
     </div>
     {{#controls.button href=(href-to "register-harvest" dc) secondary=true iconButton=true }}
         {{paper-icon "vertical_align_bottom"}}

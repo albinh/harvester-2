@@ -1,0 +1,44 @@
+{{yield}}
+{{#if editing}}
+
+    {{#paper-item class="editing md-3-line" as |controls|}}
+
+        <div class="md-list-item-text">
+            <h3>Vige (direktsådd)</h3>
+            {{#paper-form as |form|}}
+                {{form.input class="flex-50" label="namn" value=variety.name onChange=(action (mut variety.name)) required=true}}
+
+                {{#form.select class="flex-100" options=types selected=variety.type required=true label="typ" onChange=(action (mut variety.type))
+                    as |type|}}
+                    {{type}}
+                {{/form.select}}
+
+                {{form.input class="flex" label="rader per bädd" type="number" min=1 max=10 value=newVarityRows onChange=(action (mut newVarityRows)) required=true}}
+
+                {{#if (eq newVarityType "seeded")}}
+                    {{form.input class="flex" label="antal frö/radmeter" type="number" min=1 max=10000 value=newVaritySeeds onChange=(action (mut newVaritySeeds)) required=true}}
+                {{/if}}
+
+                {{#if (eq newVarityType "planted")}}
+                    {{form.input class="flex" label="Avstånd mellan plantor (cm)" type="number" min=1 max=200 value=newVaritySpacing onChange=(action (mut newVaritySpacing)) required=true}}
+                    {{form.input class="flex" label="Behållare" type="number" min=1 max=500 value=newContainer onChange=(action (mut newContainer)) required=true}}
+                {{/if}}
+            {{/paper-form}}
+        </div>
+    {{/paper-item}}
+{{else}}
+
+    {{#paper-item class="md-3-line" as |controls|}}
+
+        <div class="md-list-item-text">
+            <h3>Vige (direktsådd)</h3>
+            <h4>3 rader, 120 frön/radmeter</h4>
+            <p>a</p>
+        </div>
+        {{#controls.button secondary=true iconButton=true onClick=(action "startEdit")}}
+            {{paper-icon "edit"}}
+        {{/controls.button}}
+
+    {{/paper-item}}
+
+{{/if}}

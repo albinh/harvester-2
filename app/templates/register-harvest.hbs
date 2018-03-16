@@ -15,37 +15,85 @@
 
 <div class="md-padding doc-content">
     <div class="md-content">
-        <div class="layout-row">
-            <div class="layout-column flex-gt-md-50">
+        <div class="layout-row layout-wrap">
+            <div class="layout-column flex-100 flex-gt-md-50">
+{{#paper-form class="flex-100 layout-column" onSubmit=(action "registerHarvest") as |form|}}
 
-                    {{paper-input
-    
+
+                {{form.input
+                        class="flex-100"
                         type="number"
                         label="Vikt"
                         value=weight
                         step="0.1"
                         class="flex-100"
                         onChange=(action (mut weight))
+                            required=true
+    errorMessages=(hash
+      required="Ange vikt"
+    )
                     }}
-                    {{paper-input
+{{#if model.crop.countable}}
+                {{form.input
+                class="flex-100"
                         type="number"
                         label="Antal"
-                        value=weight
+                        value=count
                         step="1"
-                        onChange=(action (mut weight))
+                        onChange=(action (mut count))
+                            required=countRequired
+    errorMessages=(hash
+      required="Ange antal"
+    )
                     }}
-                    <p> Beställt: 45kg</p>
-                    <p> Återstår: 10kg (efter denna skörd)</p>
+               {{/if}}
+                {{form.input class="flex-100" label="Leveransdatum" type="date" value=harvestDate onChange=(action (mut harvestDate))}}
 
-                {{#paper-button class ="flex-100" raised=true primary=true}}Registrera skörd{{/paper-button}}
+    {{#form.submit-button class="flex-100" raised=true primary=true disabled=form.isInvalid}}Registrera skörd{{/form.submit-button}}
+{{/paper-form}}
+            </div>
+            <div class="layout-column flex-100 flex-gt-md-50">
+                {{#paper-card as |card|}}
+                {{#card.title as |title|}}
+                        {{#title.text as |text|}}
+          {{#text.headline}}Tidigare skördar{{/text.headline}}
+
+        {{/title.text}}
+{{/card.title}}
+<div class="layout-row">
+                <table style="width:100%" class="flex-100">
+    <thead>
+      <tr>
+        <th>datum</th>
+        <th>Vikt</th>
+        <th>Antal</th>
+        <th>-</th>
+      </tr>
+    </thead>
+    <tbody>
 
 
+                    {{#each model.harvests as |harvest|}}
+<tr>
+    <td>{{harvest.date}}</td>
+    <td>{{harvest.weight}} kg</td>
+    <td>{{harvest.count}} st</td>
+    <td>  {{#paper-button onClick=(action "deleteHarvest" harvest) iconButton=true}}{{paper-icon "delete"}}{{/paper-button}}
+</td>
+</tr>
+                    {{/each}}
+                </tbody>
+                <tfoot>
+<tr>
+    <td>Totalt:</td>
+    <td>{{model.harvestedWeight}} kg</td>
+    <td>{{model.harvestedCount}}  st</td>
+</tr>
 
-                
-
-
-
-
+                </tfoot>
+                </table>
+                </div>
+                {{/paper-card}}
             </div>
         </div>
     </div>

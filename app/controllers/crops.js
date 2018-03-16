@@ -18,15 +18,11 @@ export default Ember.Controller.extend({
                     name:       cropName,
                     countable:  countable,
                     weight_of_one_unit:weight_of_one_unit
-
-                });
-                
+                });               
                 var store = this.get('store')
                 newCrop.save();
             }
             this.set('showAddCropDialog', false);
         },
-
     }
-
 });

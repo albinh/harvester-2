@@ -28,11 +28,11 @@ export default Ember.Controller.extend({
                 });
                 {{debugger}}
 
-                delivery.save()
+                delivery.save().then( function() {
 
-                newCustomer.get("deliveries").addObject(delivery)
-                newCustomer.save();
-
+                    newCustomer.get("deliveries").addObject(delivery)
+                    newCustomer.save();
+                })
             }
         this.set('showAddDeliveryDialog', false);
         

@@ -52,7 +52,7 @@
 
 
 
-{{#paper-item class="md-2-line" as |controls|}}
+{{#paper-item href=(href-to "crop" dc)  class="md-2-line" as |controls|}}
 
   {{#if (not is_form)}}
     <img src="{{dc.imageURL}}" class="md-avatar">
@@ -104,8 +104,3 @@
 
 
 {{/paper-item}}
-
-{{#each dc.forms as |dc|}}
-
-  {{#crop-info is_form=true dc=dc}}{{/crop-info}}
-{{/each}}
