@@ -6,6 +6,5 @@ export default DS.Model.extend({
     rows_per_bed: DS.attr('number'),
     spacing_in_row: DS.attr('number'),
     seeds_per_row: DS.attr('number'),
-    
     crop: DS.belongsTo('crop', { async: true, inverse: null })
 });

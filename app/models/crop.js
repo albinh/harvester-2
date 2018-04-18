@@ -3,6 +3,7 @@ import Ember from 'ember';
 
 export default DS.Model.extend({
     name:               DS.attr('string'),
+    productForms:       DS.attr(),
     forms:              DS.hasMany('crop', { async: true, inverse: null }),
     varieties:          DS.hasMany('variety' , { async: true, inverse: null }),
     base_form:          DS.belongsTo('crop', { async: true, inverse: null }),
@@ -20,9 +21,7 @@ export default DS.Model.extend({
             return this.get('imageURL');
         } else {
             return this.get('base_form').get('imageURL');
-        }
-
-        
+        }      
     }),
 
     long_name:          Ember.computed('base_form','name', function() {

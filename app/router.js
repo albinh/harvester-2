@@ -17,7 +17,8 @@ Router.map(function() {
   this.route('crop', {path:'/crops/:crop_id'}, function() {
     this.route('create_variety', {resetNamespace:true,path:'/create_variety'})
   })
-  
+
+  this.route('create-culture');
 });
 
 export default Router;

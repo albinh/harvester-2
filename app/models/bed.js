@@ -6,5 +6,14 @@ export default DS.Model.extend({
     cultures:           DS.hasMany('culture', { async: true, inverse: null }),
     field:              DS.belongsTo('field'),
     
+    isEmpty:            Ember.computed('cultures',function () {
+       let l= this.get('cultures.length');
+       return l==0;
+    }),
+
+    name:               Ember.computed('index','field',function() {
+        {{debugger}}
+        return field + index;
+    })
 });
 

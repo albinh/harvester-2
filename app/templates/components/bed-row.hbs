@@ -5,7 +5,7 @@
         <div class="flex-20">
         
                 {{#auto-save model=bed as |bed_as|}}
-                    {{paper-input type="number" min="1" autofocus=true value=bed_as.length onChange=(action (mut bed_as.length))}}
+                {{paper-input type="number" min="1" autofocus=true value=bed_as.length onChange=(action (mut bed_as.length))}}
                     {{/auto-save}}
                     </div>
                     <div class="flex-5">

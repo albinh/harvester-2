@@ -1,0 +1,159 @@
+{{#paper-stepper onStepChange=(action (mut currentStep)) currentStep=currentStep vertical=true linear=false onStepperCompleted=null
+    as |stepper|}}
+
+    {{#stepper.step summary=cropSummary label="Välj gröda" as |step|}}
+
+
+
+
+        {{#step.actions as |nextStep previousStep|}}
+            {{#paper-form onSubmit=(action nextStep) as |form|}}
+
+
+                {{#step.body}}
+                    {{#form.autocomplete options=crops required=true searchField="name" label="Gröda" labelPath="name" selected=culture.crop
+                        placeholder="Välj gröda......" loadingMessage="..." onSelectionChange=(action (mut culture.crop)) as
+                        |crop autocomplete|}}
+                        {{paper-autocomplete-highlight
+                            label=crop.name
+                            searchText=autocomplete.searchText
+                            flags="i"}}
+                    {{/form.autocomplete}}
+
+                    {{#form.autocomplete options=culture.crop.varieties onCreate=(action "addVariety") allowClear=true required=true searchField="name"
+                        labelPath="name" selected=culture.variety placeholder="Välj gröda......" loadingMessage="..." label="sort"
+                        noMatchesMessage="Hittar ingen sort. Skapa?" onSelectionChange=(action (mut culture.variety)) as |variety
+                        autocomplete|}}
+                        {{paper-autocomplete-highlight
+                            label=variety.name
+                            searchText=autocomplete.searchText
+                            flags="i"}}
+                    {{/form.autocomplete}}
+
+                {{/step.body}}
+                {{#paper-button primary=true raised=true disabled=form.isInvalid onClick=(action nextStep)}}
+                    Nästa
+                {{/paper-button}}
+                {{#paper-button onClick=(action previousStep)}}
+                    Tillbaka
+                {{/paper-button}}
+            {{/paper-form}}
+        {{/step.actions}}
+
+    {{/stepper.step}}
+
+
+
+    {{#stepper.step summary=howSummary label="Hur?" as |step|}}
+
+        {{#step.actions as |nextStep previousStep|}}
+            {{#paper-form onSubmit=(action nextStep) as |form|}}
+
+
+                {{#step.body}}
+                    <div class="layot-column ">
+                        {{form.input class="layout-fill flex" label="rader/bädd" value=culture.rowsPerBed required=true type="number" min=1 max=15 onChange=(action (mut culture.rowsPerBed))}}
+                    </div>
+                    {{#form.select class="layout-fill flex" required=true label="typ" options=cultureTypes selected=newType onChange=(action "updateType") as |type|}}
+                        {{type.description}}
+                    {{/form.select}}
+
+                    {{#if (eq culture.type "directseeded")}}
+
+                        {{form.input class="layout-fill flex" label="frö/m" value=culture.seedsPerMeter required=false type="number" min=1 max=1000 onChange=(action (mut culture.seedsPerMeter))}}
+
+                    {{/if}}
+                    {{#if (eq culture.type "planted")}}
+                        {{form.input class="layout-fill flex" label="avstånd i raden (cm)" value=culture.plantSpacing required=true type="number" min=1 max=1000 onChange=(action (mut culture.plantSpacing))}}
+                        {{form.input class="layout-fill flex" label="behållare" value=culture.plantContainer required=true type="text"  onChange=(action (mut culture.plantContainer))}}                        
+                       
+                    {{/if}}
+
+                {{/step.body}}
+                {{#paper-button primary=true raised=true disabled=form.isInvalid onClick=(action nextStep)}}
+                    Nästa
+                {{/paper-button}}
+                {{#paper-button onClick=(action previousStep)}}
+                    Tillbaka
+                {{/paper-button}}
+            {{/paper-form}}
+        {{/step.actions}}
+
+    {{/stepper.step}}
+
+   {{#stepper.step label="När?" as |step|}}
+
+        {{#step.actions as |nextStep previousStep|}}
+            {{#paper-form onSubmit=(action nextStep) as |form|}}
+
+
+                {{#step.body}}
+                                    {{#if (eq culture.type "planted")}}
+
+                    <div class="layot-column ">
+                        {{form.input class="layout-fill flex" label="datum sådd i växthus" value=culture.plantSeedDate disabled=true required=true type="date"  onChange=(action (mut culture.plantSeedDate))}}
+                    </div>
+                    <div class="layot-column ">
+                        {{form.input class="layout-fill flex" label="dagar till plantering" value=culture.daysToPlanting required=true type="number" max=150 min=1  onChange=(action (mut culture.daysToPlanting))}}
+                    </div>
+                    <div class="layot-column ">
+                        {{form.input class="layout-fill flex" label="utplantering" value=culture.inGround required=true type="date" onChange=(action (mut culture.inGround))}}
+                    </div>
+
+                    {{/if}}
+
+                {{/step.body}}
+                {{#paper-button primary=true raised=true disabled=form.isInvalid onClick=(action nextStep)}}
+                    Nästa
+                {{/paper-button}}
+                {{#paper-button onClick=(action previousStep)}}
+                    Tillbaka
+                {{/paper-button}}
+            {{/paper-form}}
+        {{/step.actions}}
+
+    {{/stepper.step}}
+
+  {{#stepper.step label="Var?" as |step|}}
+
+        {{#step.actions as |nextStep previousStep|}}
+            {{#paper-form onSubmit=(action nextStep) as |form|}}
+
+
+                {{#step.body}}
+{{r2}}
+                    A{{remainingBeds}}  A   
+                    {{#each remainingBeds as |e|}}
+                    {{e}}
+
+                    {{/each}}
+{{#paper-chips
+  readOnly=readOnly
+  removeItem=(action "removeBed")
+  addItem=(action "addBed")
+  placeholder="Lägg till bädd"
+  content=culture.beds
+  options=remainingBeds
+  searchField="name"
+  requireMatch=true
+  as |item|}}
+  <strong>{{item.name}}</strong>
+  {{#if item.family}}
+    <em>{{item.family}}</em>
+  {{/if}}
+{{/paper-chips}}         
+
+                {{/step.body}}
+                {{#paper-button primary=true raised=true disabled=form.isInvalid onClick=(action nextStep)}}
+                    Nästa
+                {{/paper-button}}
+                {{#paper-button onClick=(action previousStep)}}
+                    Tillbaka
+                {{/paper-button}}
+            {{/paper-form}}
+        {{/step.actions}}
+
+    {{/stepper.step}}
+
+
+{{/paper-stepper}}
